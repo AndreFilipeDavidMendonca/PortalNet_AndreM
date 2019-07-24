@@ -1,0 +1,140 @@
+<link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
+<body >
+<br><br><br>
+
+<app-alert></app-alert>
+<span class="help-block">{{ this.message }}</span>
+<div class="container">
+    <form class="form-horizontal" role="form" [formGroup]="ClientForm" (ngSubmit)="onSubmit()">
+        <h2 id="title">Registration</h2>
+        <hr>
+        <br>
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Nome Completo*</label>
+            <div class="col-sm-12">
+                <input type="text" id="name" placeholder="Introduza o seu Nome Completo" class="form-control" formControlName="name" autofocus>
+                <span class="help-block" *ngIf="ClientForm.controls['name'].hasError('required') && ClientForm.controls['name'].touched ">Introduza o seu nome!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nif" class="col-sm-4 control-label">NIF*</label>
+            <div class="col-sm-12">
+                <input type="text" id="nif" placeholder="Introduza o seu NIF" class="form-control" formControlName="nif">
+                <div *ngIf="!!f.nif.errors && ClientForm.controls['nif'].touched">
+                    <span *ngIf="!!f.nif.errors.required">Introduza o seu NIF!</span>
+                    <span *ngIf="!!f.nif.errors.minlength">Introduza um NIF com 9 números!</span>
+                    <span *ngIf="!!f.nif.errors.maxlength">Introduza um NIF com 9 números!</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="postCode" class="col-sm-4 control-label">Código-Postal*</label>
+            <div class="col-sm-12">
+                <input type="text" id="postalCode" placeholder="Introduza o seu Código-Postal" class="form-control" formControlName="postalCode"> 
+                <span class="help-block" *ngIf="ClientForm.controls['postalCode'].hasError('required') && ClientForm.controls['postalCode'].touched">Introduza o seu código-postal!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-4 control-label">Morada*</label>
+            <div class="col-sm-12">
+                <input type="text" id="address" placeholder="Introduza a sua Morada" class="form-control" formControlName="address">
+                <span class="help-block" *ngIf="ClientForm.controls['address'].hasError('required') && ClientForm.controls['address'].touched">Introduza a sua morada!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="city" class="col-sm-4 control-label">Localidade*</label>
+            <div class="col-sm-12">
+                <input type="text" id="city" placeholder="Introduza a sua Morada" class="form-control" formControlName="city">
+                <span class="help-block" *ngIf="ClientForm.controls['city'].hasError('required') && ClientForm.controls['city'].touched">Introduza a sua Localidade!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-4 control-label">Email* </label>
+            <div class="col-sm-12">
+                <input type="email" id="email" placeholder="Introduza o seu Email" class="form-control" formControlName="email" email>
+                <span class="help-block" *ngIf="ClientForm.controls['email'].hasError('required') && ClientForm.controls['email'].touched">Introduza o seu Email!</span>
+                <span class="help-block" *ngIf="ClientForm.controls['email'].hasError('email') && ClientForm.controls['email'].touched">Introduza um Email válido!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-4 control-label">Palavra-Passe*</label>
+            <div class="col-sm-12">
+                <input type="password" id="password" placeholder="Introduza a Palavra-Passe" class="form-control" formControlName="password">
+                <div *ngIf="!!f.password.errors && ClientForm.controls['password'].touched">
+                    <span *ngIf="!!f.password.errors.required">Introduza uma senha!</span>
+                    <span *ngIf="!!f.password.errors.minlength">Introduza uma senha com mais de 6 caracteres!</span>
+                    <span *ngIf="!!f.password.errors.maxlength">Introduza uma senha com menos de 15 caracteres!</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="col-sm-5 control-label">Confirmar Palavra-Passe*</label>
+            <div class="col-sm-12">
+                <input type="password" id="confirmPassword" placeholder="Confirme a Palavra-Passe" class="form-control" formControlName="confirmPassword">
+                <div *ngIf="!!f.confirmPassword.errors && ClientForm.controls['confirmPassword'].touched">
+                    <span *ngIf="!!f.confirmPassword.errors.required">Confirme a sua senha</span>
+                    <span *ngIf="!!f.confirmPassword.errors.mustMatch">As senhas não correspondem</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthDate" class="col-sm-5 control-label">Data de Nascimento*</label>
+            <div class="col-sm-12">
+                <input type="date" id="birthDate" class="form-control" formControlName="birthDate" required>
+                <span class="help-block" *ngIf="ClientForm.controls['birthDate'].hasError('required') && ClientForm.controls['birthDate'].touched">Introduza a sua data de nascimento</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-5 control-label">Telefone</label>
+            <div class="col-sm-12">
+                <input type="number" id="phone" placeholder="Insira o seu número de telefone" class="form-control" formControlName="phone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mobilePhone" class="col-sm-5 control-label">Telemóvel</label>
+            <div class="col-sm-12">
+                <input type="number" id="mobilePhone" placeholder="Insira o seu número de telemóvel" class="form-control" formControlName="mobilePhone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="gender" class="col-sm-3 control-label">Género*</label>
+            <div class="col-sm-5">
+                <select id="gender" class="form-control" formControlName="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <span class="help-block" *ngIf="ClientForm.controls['gender'].hasError('required') && ClientForm.controls['gender'].touched">Selecione o seu género</span>
+            </div>
+        </div>  
+        <br>
+        <div class="form-group">
+            <label for="serviceName" class="col-sm-3 control-label"><h3>Serviço*</h3></label>
+            <div class="col-sm-5">
+                <select id="serviceName" class="form-control" formControlName="serviceName" (click)="fetchServiceByName()">
+                    <option value="{{ service.name }}" *ngFor="let service of filteredServices">{{ service.name }}</option>
+                </select>
+                <span class="help-block" *ngIf="ClientForm.controls['serviceName'].hasError('required') && ClientForm.controls['serviceName'].touched">Selecione um serviço</span>
+            </div>
+        </div>     
+        <br>
+            <label for="service" class="col-sm-3 control-label"><h3>Preço</h3></label>
+            <div class="col-sm-5" *ngIf="ClientForm.controls['serviceName'].dirty">
+             <h4>{{ this.servicePrice }}€</h4>
+            </div>
+                <!-- <h5 >{{ service.price }}</h5> -->
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+                <span class="help-block" style="color: rgb(0, 0, 0);">*Campos Obrigatórios</span>
+            </div>
+        </div>   
+        <br>    
+        <br>
+        <div class="form-group">    
+            <button type="submit" class="btn btn-primary" value="PostData" [disabled]="!ClientForm.valid">Registar</button>
+            <button type="reset" class="btn btn-danger" (click)="onReset()" style="margin-left: 1%;">Limpar</button>
+        </div>
+    </form> 
+</div> 
+</body>
+
+

@@ -1,0 +1,365 @@
+<body>
+<br><br><br>
+<app-alert></app-alert>
+<div class="side-nav">
+  <div class="row">
+    <div class="col-ms-12" >
+      <h2>Nome Completo</h2>
+      <h4>{{ client.name }}</h4>
+      <br><br>
+      <h2>Número de Cliente</h2>
+      <h4>{{ client.clientNumber }}</h4>
+      <br><br>
+      <h2>Associar Serviço</h2>
+      <a (click)="openModalAssociateService(ASModal)" class="edit">
+        <i class="material-icons">edit</i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="container" >
+  <div class="row" >
+    <table class="table table-borderless" >
+          <tr>
+            <td>Data de Nascimento</td>
+            <td>{{ client.birthDate }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>NIF</td>
+            <td>{{ client.nif }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Data de Inscrição</td>
+            <td>{{ client.entryDate }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Fim de Contracto</td>
+            <td>{{  client.endContract }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Serviços Associados</td>
+            <td>{{ client.numberOfServices }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Mensalidade</td>
+            <td>{{ client.monthlyPay }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td>{{ client.gender }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Morada</td>
+            <td>{{ client.address }}</td>
+            <td>
+              <a (click)="openModalAddress(address)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Localidade</td>
+            <td>{{ client.city }}</td>
+            <td>
+              <a (click)="openModalLocality(city)" class="edit">
+                <i class="material-icons">edit</i>
+            </a>
+            </td>
+          </tr>
+          <tr>
+            <td >Código-Postal</td>
+            <td>{{ client.postalCode }}</td>
+            <td>
+              <a (click)="openModalPostalCode(postalCode)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ client.email }}</td>
+            <td>
+              <a (click)="openModalEmail(email)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Telemóvel</td>
+            <td>{{ client.mobilePhone }}</td>
+            <td>
+              <a (click)="openModalMobilePhone(mobilePhone)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+              <td>Telefone</td>
+              <td>{{ client.phone }}</td>
+              <td>
+                <a (click)="openModalPhone(phone)" class="edit">
+                  <i class="material-icons">edit</i>
+                </a>
+              </td>
+          </tr>
+          <tr>
+            <td>Serviço</td>
+            <td>{{ client.serviceName }}</td>
+            <td>
+              <a (click)="openModalService(service)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Pagamentos</td>
+            <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
+            <td *ngIf="client.fraudulent === false">Em Ordem</td>
+            <td>
+              <a (click)="openModalFraudulent(fraudulent)" class="edit">
+                  <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Estado</td>
+            <td *ngIf="client.status === false" style="color: red;">Desactiva</td>
+            <td *ngIf="client.status === true">Activa</td>
+            <td>
+              <a class="delete" (click)="openModalStatus(status)">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
+<br><br><br><br>
+      
+<!--Modal Change Address-->
+<ng-template #address let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Morada</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Locality-->
+<ng-template #city let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Localidade</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="city" [(ngModel)]="client.city" name="city"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Postal Code-->
+<ng-template #postalCode let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Código-Postal</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="postalCode" [(ngModel)]="client.postalCode" name="postalCode"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Email-->
+<ng-template #email let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Email</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="email" [(ngModel)]="client.email" name="email"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Phone Number-->
+<ng-template #phone let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Telefone</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="phone" [(ngModel)]="client.phone" name="phone"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Mobile Phone Number-->
+<ng-template #mobilePhone let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Telemóvel</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="mobilePhone" [(ngModel)]="client.mobilePhone" name="mobilePhone"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change Status-->
+<ng-template #status let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Estado de Conta</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" style="margin-left: 10%;" class="custom-control-input"  id="status" [(ngModel)]="client.status" name="status"> 
+      <label class="custom-control-label" *ngIf="client.status===true" for="status">Activa</label>
+      <label class="custom-control-label" *ngIf="client.status===false" for="status" style="color: red">Desactiva</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change to Fraudulent-->
+<ng-template #fraudulent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Fraudulência de Conta</h4>
+      <a (click)="modal.dismiss('Cross click')" class="close">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" style="margin-left: 10%;" checked="true" class="custom-control-input" id="fraudulent" [(ngModel)]="client.fraudulent" name="fraudulent"> 
+        <label class="custom-control-label" *ngIf="client.fraudulent===true" for="fraudulent" style="color: red">Em Dívida</label>
+        <label class="custom-control-label" *ngIf="client.fraudulent===false" for="fraudulent">Em Ordem</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+
+
+<ng-template #service let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Serviço</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+        <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-9">
+        <select id="serviceName" class="form-control" [(ngModel)]="client.serviceName" name="serviceName">
+            <option value="{{ service.name }}" *ngFor="let service of filteredServices">{{ service.name }}  ||  {{ service.price }}€</option>
+        </select>
+    </div>
+</div>     
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="modal.save('saveClick')">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #ASModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Associar Novo Serviço</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+        <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <label for="moradaAS">Morada de Instalação</label>
+      <input type="text" class="form-control" placeholder="Introduza a morada de instalação!" (input)="updateData($event)"  name="address" id="address" #address="ngModel" ngModel required>
+      <span class="help-block" *ngIf="!address.valid && address.touched">Introduza uma morada para a instalação!</span>
+  </div>
+  <div class="modal-body">
+      <label for="postCode">Código-Postal</label>
+        <input type="text" class="form-control" placeholder="Introduza o Código-Postal" (input)="updateData($event)"  name="postCode" id="postCode" #postCode="ngModel" ngModel required>
+        <span class="help-block" *ngIf="!postCode.valid && postCode.touched">Introduza um código-postal!</span>
+  </div>
+  <div class="modal-body">
+      <label for="postCode">Localidade</label>
+        <input type="text" class="form-control" placeholder="Introduza a Localidade!" (input)="updateData($event)" name="city" id="city" #city="ngModel" ngModel required>
+        <span class="help-block" *ngIf="!city.valid && city.touched">Introduza uma localidade!</span>
+  </div>
+  <div class="modal-body">
+    <label for="service">Serviço</label>
+    <div class="form-group">
+      <div class="col-sm-9">
+          <select name="AsService" id="AsService" class="form-control" #AsService="ngModel" ngModel required>
+              <option value="{{ service.name }}" *ngFor="let service of filteredServices">{{ service.name }}  ||  {{ service.price }}€</option>
+          </select>
+          <span class="help-block" *ngIf="!AsService.valid && AsService.touched">Selecione um serviço!</span>
+      </div>
+    </div> 
+  </div>    
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="modal.save('saveClick')" >Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+</body>

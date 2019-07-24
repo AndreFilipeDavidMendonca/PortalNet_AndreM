@@ -1,0 +1,64 @@
+
+<link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+<body >
+  <br><br><br> 
+<app-alert></app-alert>
+<div class="container">
+    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit()" [formGroup]="EmployeeForm">
+        <h2 id="title">Criar Colaborador</h2>
+        <hr>
+        <br>
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Nome do Colaborador*</label>
+            <div class="col-sm-12">
+                <input type="text" id="name" placeholder="Introduza o nome colaborador." class="form-control" formControlName="name">
+                <span class="help-block" *ngIf="EmployeeForm.controls['name'].hasError('required') && EmployeeForm.controls['name'].touched">Introduza o nome do colaborador!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="internet" class="col-sm-4 control-label">Email*</label>
+            <div class="col-sm-12">
+                <input type="text" id="email" placeholder="Introduza o email do colaborador." class="form-control" formControlName="email"> 
+                <span class="help-block" *ngIf="EmployeeForm.controls['email'].hasError('required') && EmployeeForm.controls['email'].touched">Introduza o Email do colaborador!</span>
+                <span class="help-block" *ngIf="EmployeeForm.controls['email'].hasError('email') && EmployeeForm.controls['email'].touched">Introduza um Email válido!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-4 control-label">Palavra-Passe*</label>
+            <div class="col-sm-12">
+                <input type="password" id="password" placeholder="Introduza a Palavra-Passe" class="form-control" formControlName="password">
+                <span class="help-block" *ngIf="EmployeeForm.controls['password'].hasError('required') && EmployeeForm.controls['password'].touched">Introduza uma palavra-passe!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="col-sm-5 control-label">Confirmar Palavra-Passe*</label>
+            <div class="col-sm-12">
+                <input type="password" id="confirmPassword" placeholder="Confirme a Palavra-Passe" class="form-control" formControlName="confirmPassword">
+                <span class="help-block" *ngIf="EmployeeForm.controls['confirmPassword'].hasError('required') && EmployeeForm.controls['confirmPassword'].touched">Confirme a sua palavra-passe!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tv" class="col-sm-4 control-label">Cargo*</label>
+            <div class="col-sm-12">
+                <select type="text" id="role" class="form-control" formControlName="role">
+                  <option value="administrador">Administrador</option>
+                  <option value="operador">Operador</option>
+                </select>
+                <span class="help-block"*ngIf="EmployeeForm.controls['role'].hasError('required') && EmployeeForm.controls['role'].touched">Introduza o cargo do colaborador!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+                <span class="help-block" style="color: rgb(0, 0, 0);">*Campos Obrigatórios</span>
+            </div>
+        </div>
+        <br>  
+        <button type="submit" class="btn btn-primary" [disabled]="!EmployeeForm.valid">Registar</button>
+        <button type="reset" class="btn btn-danger" (click)="onReset()" style="margin-left: 1%;">Limpar</button>
+    </form> 
+</div> 
+</body>
+
+
+
+ 

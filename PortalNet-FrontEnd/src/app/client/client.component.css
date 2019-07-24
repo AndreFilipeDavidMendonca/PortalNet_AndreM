@@ -1,0 +1,38 @@
+.container {
+    width: 60%;
+    margin: 2% 35%;
+    font-size: 120%;
+}
+
+.side-nav {
+    margin: 5% 5%;
+    position: absolute;
+}
+.side-nav h2 {
+    font-family: 'DM Sans', sans-serif;
+    color: rgb(51, 102, 214);
+
+}
+
+
+ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border: 1px solid red;
+ }
+ 
+ span {
+    font-size: 13px;
+    color: red;
+ }
+
+ a {
+     cursor: pointer;
+ }
+
+ .modal-body input.custom-control-input {
+     margin-left: 50%;
+ }
+
+ #enviar {
+    float: right;
+    margin-right: 10%;
+ }

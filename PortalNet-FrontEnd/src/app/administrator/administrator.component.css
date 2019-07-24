@@ -1,0 +1,33 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css');
+.bg-dark {
+    background-color: #343a40!important;
+}
+body {
+    position: absolute;
+    margin: 7% 0 0 10%;
+    width: 80%;
+}
+
+h3 {
+    color: rgb(51, 102, 214);
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+img {
+    width: 250px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+
+
+.col-md-4 {
+    width: 100%;
+}
+
+
+
+p.card-text {
+    width: 100%;
+}
+

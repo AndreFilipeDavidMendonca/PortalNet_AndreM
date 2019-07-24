@@ -1,0 +1,144 @@
+<head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+ 
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+</head>
+<body>
+<br><br><br>
+<app-alert></app-alert>
+<br>
+  <div class="row">
+      <div class="table-responsive">
+        <div class="title">
+          <h2>Tabela de Serviços</h2>
+          <a  routerLink="/createService" class="btn btn-primary">
+            <i class="material-icons" >&#xE147;</i> <span style="color: white; font-size: 100%;">&ensp;Criar Serviço</span>
+          </a>
+        </div>
+        <br><br><br>
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>Id Serviço</th>
+                  <th>Nome Serviço</th>
+                  <th>Internet</th>
+                  <th>Tv</th>
+                  <th>Telemóvel</th>
+                  <th>Telefone</th>
+                  <th>Fidelização</th>
+                  <th>Preço</th>
+                  <th>Data de Criação</th>
+                  <th>Estado</th>
+                  <th class="text-right">Ações</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let service of services " >
+                  <td scope="row">{{ service.serviceID }}</td>
+                  <td style="color: blue;">{{ service.name }}</td>
+                  <td *ngIf="service.internet == 0 || service.internet === ''" style="color: lightgray;">Sem Internet</td>
+                  <td *ngIf="service.internet > 0">{{ service.internet }} MB/s</td>
+                  <td *ngIf="service.tv == 0 || service.tv === ''" style="color: lightgray;">Sem Televisão</td>
+                  <td *ngIf="service.tv > 0 ">{{ service.tv }} Canais</td>
+                  <td *ngIf="service.mobilePhone == 0 || service.mobilePhone === ''" style="color: lightgray;">Sem Telemóvel</td>
+                  <td *ngIf="service.mobilePhone > 0">{{ service.mobilePhone }} GB</td>
+                  <td *ngIf="service.phone === '' || service.phone == 0" style="color: lightgray;">Sem Telefone</td>
+                  <td *ngIf="service.phone != 'Minutos Ilimitados' && service.phone != '' && service.phone != 0">{{ service.phone }} Minutos</td>
+                  <td *ngIf="service.phone == 'Minutos Ilimitados'">{{ service.phone }}</td>
+                  <td *ngIf="service.loyalty > 1">{{ service.loyalty }} Anos</td>
+                  <td *ngIf="service.loyalty == 1">{{ service.loyalty }} Ano</td>
+                  <td *ngIf="service.loyalty == 0 || service.loyalty === ''" style="color: lightgray;">Sem Fidelização</td>
+                  <td>{{ service.price }}€</td>                  
+                  <td>{{ service.creationDate }}</td>
+                  <td *ngIf="service.status === true">Activo</td>
+                  <td *ngIf="service.status === false" style="color: red;">Desactivo</td>
+                  <td class="td-actions text-right">
+                    <a  routerLink="/servicesTable" class="edit"  (click)="fetchServiceById(service.serviceID); openModalService(content)" >
+                      <i class="material-icons" >edit</i>
+                    </a>
+                  </td>
+              </tr>   
+              </tbody>
+          </table>   
+      </div>
+  </div>
+</body>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h3 class="modal-title">{{ service.name }}</h3>
+      <a (click)="modal.dismiss('Cross click')" class="close">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <div class="col-sm-12">
+         <h5>Alterar Dados</h5>
+      </div>   
+    </div>
+    <div class="modal-body">
+      <div class="col-sm-12">  
+        <label for="internet">Internet</label>
+        <input type="number" id="internet" class="form-control" placeholder="Introduza a velocidade da internet em MB/s!" #internet="ngModel" [(ngModel)]="this.service.internet" name="internet" required> 
+        <span *ngIf="!internet.valid && internet.touched">Caso não queira adicionar internet a este serviço introduza "0"!</span>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="col-sm-12">
+        <label for="tv">Televisão</label>
+        <input type="number" id="tv" class="form-control" placeholder="Introduza o número de canais de televisão!" #tv="ngModel" [(ngModel)]="this.service.tv" name="tv" required>                      
+        <span *ngIf="!tv.valid && tv.touched">Caso não queira adicionar televisão a este serviço introduza "0"!</span>
+      </div>
+    </div>
+    <div class="modal-body"> 
+      <div class="col-sm-12"> 
+        <label for="mobilePhone">Telemóvel</label>
+        <input type="number" id="mobilePhone" class="form-control" placeholder="Introduza os dados móveis por mês!" #mobilePhone="ngModel" [(ngModel)]="this.service.mobilePhone" name="mobilePhone" required>
+        <span *ngIf="!mobilePhone.valid && mobilePhone.touched">Caso não queira adicionar telemóvel a este serviço introduza "0"!</span>
+      </div>
+    </div>
+    <div class="modal-body">  
+      <div class="col-sm-12">
+        <label for="phone">Telefone</label>
+        <input type="number" id="phone" class="form-control" placeholder="Introduza os minutos oferecidos por mês!" #phone="ngModel" [(ngModel)]="this.service.phone" name="phone" required>
+        <span *ngIf="!phone.valid && phone.touched">Caso não queira adicionar telefone a este serviço introduza "0"!</span>
+      </div>
+    </div>
+    <div class="modal-body"> 
+      <div class="col-sm-12"> 
+        <label for="loyalty">Fidelização*</label>
+        <input type="number" id="loyalty" class="form-control" placeholder="Introduza o periodo de fidelização!" #loyalty="ngModel" [(ngModel)]="this.service.loyalty" name="loyalty" required>
+        <span *ngIf="!loyalty.valid && loyalty.touched">Caso não queira adicionar fidelização a este serviço introduza "0"!</span>
+      </div>
+    </div>
+    <div class="modal-body">  
+      <div class="col-sm-12">
+        <label for="price">Preço*</label>
+        <input type="number" id="price" class="form-control" placeholder="Introduza o preço deste serviço!" #price="ngModel" [(ngModel)]="this.service.price" name="price" required>
+        <span *ngIf="!price.valid && price.touched">Adicione um preço a este serviço!</span>
+      </div>
+    </div>
+    <div class="modal-body">  
+      <div class="col-sm-12">
+        <label for="image">Nome da Imagem*</label>
+        <input type="text" id="imgName" class="form-control" placeholder="Introduza o nome da imagem para este serviço!" #imgName="ngModel" [(ngModel)]="this.service.imgName" name="imgName" required>
+        <span *ngIf="!imgName.valid && imgName.touched">Adicione uma imagem a este serviço!</span>
+      </div>
+    </div>
+    <div class="modal-body"> 
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" style="margin-left: 10%;" checked="true" class="custom-control-input"  id="status" [(ngModel)]="this.service.status" name="status"> 
+        <label *ngIf="service.status === true" class="custom-control-label" for="status">Serviço Activo</label>
+        <label *ngIf="service.status === false" class="custom-control-label" for="status">Serviço Desactivo</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success" (click)="onUpdateService(service)" [disabled]="!internet.valid || !tv.valid || !mobilePhone.valid || !phone.valid || !loyalty.valid || !price.valid || !imgName.valid ">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+
+
+

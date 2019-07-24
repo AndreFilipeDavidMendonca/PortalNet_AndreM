@@ -1,0 +1,139 @@
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>     
+    <div class="row">
+        <div class="table-responsive">
+            <div class="col-md-12">
+                <ul>
+                    <li><h2>Tabela de Clientes</h2></li><br><br>
+                    <li><input type="text"  [(ngModel)]="searchText"  class="form-control searchBox" id="NomeClient" placeholder="Procurar Cliente"></li>
+                    <li  style="margin-left: 4%;"><div class="custom-control custom-checkbox">
+                        <input type="checkbox" checked="true"  class="custom-control-input"  [(ngModel)]="filter.fraudulent" (ngModelChange)="filterChange()" id="fraudulent" >
+                            <label class="custom-control-label" for="fraudulent">Fraudulentos</label>
+                        </div>
+                    </li>
+                    <li><div class="custom-control custom-checkbox">
+                        <input type="checkbox" checked="true" class="custom-control-input" [(ngModel)]="filter.status" (ngModelChange)="filterChange()" id="status" >
+                            <label class="custom-control-label" for="status">Activas</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <div class="checked" *ngIf="(filter.fraudulent || filter.status) && !(filter.fraudulent && filter.status)">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome Completo</th>
+                            <th>Número de Cliente</th>
+                            <th>NIF</th>
+                            <th>E-Mail</th>
+                            <th>Serviço</th>
+                            <th>Estado</th>
+                            <th>Pagamentos</th>
+                            <th class="text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let client of filteredClients  | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
+                            <td scope="row">{{ client.name }}</td>
+                            <td>{{ client.clientNumber }}</td>
+                            <td>{{ client.nif }}</td>
+                            <td>{{ client.email }}</td>
+                            <td>{{ client.serviceName }} </td>
+                            <td *ngIf="client.status === false" style="color: red;">Desactiva</td>
+                            <td *ngIf="client.status === true">Activa</td>
+                            <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
+                            <td *ngIf="client.fraudulent === false">Em Ordem</td>
+                            <td class="td-actions text-right">
+                                <a [routerLink]="['/client/', client.clientId]" class="person">
+                                    <i class="material-icons">person</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <pagination-controls (pageChange)="p = $event" class="myPagination"></pagination-controls>
+                </div>
+            </div>
+            <div class="notChecked" *ngIf="!filter.status && !filter.fraudulent ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome Completo</th>
+                                <th>Número de Cliente</th>
+                                <th>NIF</th>
+                                <th>E-Mail</th>
+                                <th>Serviço</th>
+                                <th>Estado</th>
+                                <th>Pagamentos</th>
+                                <th class="text-right">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
+                                <td scope="row">{{ client.name }}</td>
+                                <td>{{ client.clientNumber }}</td>
+                                <td>{{ client.nif }}</td>
+                                <td>{{ client.email }}</td>
+                                <td>{{ client.serviceName }} </td>
+                                <td *ngIf="client.status === false" style="color: red;">Desactiva</td>
+                                <td *ngIf="client.status === true">Activa</td>
+                                <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
+                                <td *ngIf="client.fraudulent === false">Em Ordem</td>
+                                <td class="td-actions text-right">
+                                    <a [routerLink]="['/client/', client.clientId]" class="person">
+                                        <i class="material-icons" >person</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <pagination-controls (pageChange)="p = $event" class="myPagination"></pagination-controls>
+                    </div>
+                </div>
+                <br>
+                <div class="checked" *ngIf="filter.fraudulent && filter.status">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome Completo</th>
+                                <th>Número de Cliente</th>
+                                <th>NIF</th>
+                                <th>E-Mail</th>
+                                <th>Serviço</th>
+                                <th>Estado</th>
+                                <th>Pagamentos</th>
+                                <th class="text-right">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of bothFilteredClients  | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
+                                <td scope="row">{{ client.name }}</td>
+                                <td>{{ client.clientNumber }}</td>
+                                <td>{{ client.nif }}</td>
+                                <td>{{ client.email }}</td>
+                                <td>{{ client.serviceName }} </td>
+                                <td *ngIf="client.status === false" style="color: red;">Desactiva</td>
+                                <td *ngIf="client.status === true">Activa</td>
+                                <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
+                                <td *ngIf="client.fraudulent === false">Em Ordem</td>
+                                <td class="td-actions text-right">
+                                    <a [routerLink]="['/client/', client.clientId]" class="person">
+                                        <i class="material-icons">person</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <pagination-controls (pageChange)="p = $event" class="myPagination"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
