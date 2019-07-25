@@ -25,6 +25,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Globals } from './globals';
+import { LoadingSpinnerComponent } from './loading/loading-spinner.component';
 
 
 
@@ -60,7 +61,8 @@ const appRoutes: Routes =  [
     CreateEmployeeComponent,
     EmployeesTableComponent,
     AlertComponent,
-    FilterPipe
+    FilterPipe,
+    LoadingSpinnerComponent,
  
   ],
 

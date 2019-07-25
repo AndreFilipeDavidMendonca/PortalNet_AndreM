@@ -37,7 +37,9 @@ export class HomeComponent implements OnInit {
         private servicesService: ServicesService,
         private alertService: AlertService,
         private appComponent: AppComponent
-    ) {  }
+    ) { 
+      let currentUser = this.authenticationService.currentUserValue;
+     }
 
   
     fetchServices() {
@@ -62,34 +64,33 @@ export class HomeComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
+    this.isLoading = true;  
+    
+   
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+        return;
+    }    
 
-      // stop here if form is invalid
-      if (this.loginForm.invalid) {
-          return;
-      }
-
-
-      this.isLoading = true;
-      this.authenticationService.login(this.f.email.value, this.f.password.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.appComponent.isLoggedIn();
-              if(this.appComponent.isClient()) {
-                this.currentUser = this.authenticationService.currentUserValue;
-                this.router.navigate(['/client/', this.currentUser.userId]);
-              } else if (this.appComponent.isEmployee() || this.appComponent.isAdmin()) {
-                this.router.navigate(['/administrator']);
-              }
-              },
-              error => {
-                this.alertService.error(error);
-                this.router.navigate(['/home']);
-                  this.isLoading = false;
-              });
-              
-  }
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.appComponent.isLoggedIn();
+            if(this.appComponent.isClient()) {
+              this.currentUser = this.authenticationService.currentUserValue;
+              this.router.navigate(['/client/', this.currentUser.userId]);
+            } else if (this.appComponent.isEmployee() || this.appComponent.isAdmin()) {
+              this.router.navigate(['/administrator']);
+            }
+            },
+            error => {
+              this.alertService.error(error);
+              this.router.navigate(['/home']);
+              this.isLoading = false;
+    });
+  }  
 }
 
 

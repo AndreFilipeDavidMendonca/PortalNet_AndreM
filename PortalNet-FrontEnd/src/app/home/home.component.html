@@ -1,8 +1,13 @@
 <body>
-<div class="main">
+      <div class="spinner" *ngIf="isLoading">
+         <!-- <h1>Olá, {{ this.currentUser.userName }}</h1> -->
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+<div class="main" *ngIf="!isLoading">
    <br>
       <app-alert></app-alert>
     <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
+    
 
     <div class="col-md-12">
       <div class="side-nav">
