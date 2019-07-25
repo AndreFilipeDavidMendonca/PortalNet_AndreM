@@ -112,7 +112,7 @@ export class ClientComponent implements OnInit {
 
  
   fetchClientById(){  
-    this.clientService.getById(this.currentUser.userId)
+    this.clientService.getById(this.clientId)
       .pipe(first())
       .subscribe(client => {
         this.client = client[0];

@@ -13,7 +13,7 @@ public class Workers {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long employeeId;
+    private Integer employeeId;
     private String name;
     private String email;
     private String role;
@@ -28,11 +28,11 @@ public class Workers {
         this.password = password;
     }
 
-	public Long getEmployeeId() {
+	public Integer getEmployeeId() {
 		return employeeId;
 	}
 	
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
 	}
 

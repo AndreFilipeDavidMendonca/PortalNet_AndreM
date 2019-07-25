@@ -11,18 +11,18 @@ public class JwtResponse {
 	private String jwt;
 	private String message;
 	private Collection<? extends GrantedAuthority> authorities;
-	private String Id;
-	private String name;
+	private int userId;
+	private String userName;
 	
 	public JwtResponse() {};
 	
-	public JwtResponse(String jwt, String message, Collection<? extends GrantedAuthority> authorities, String Id, String name) {
+	public JwtResponse(String jwt, String message, Collection<? extends GrantedAuthority> authorities, int userId, String userName) {
 		super();
 		this.jwt = jwt;
 		this.message = message;
 		this.authorities = authorities;
-		this.Id = Id;
-		this.name = name;
+		this.userId = userId;
+		this.userName = userName;
 	}
 
 	public String getJwt() {
@@ -49,19 +49,19 @@ public class JwtResponse {
 		this.message = message;
 	}
 
-	public String getId() {
-		return Id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		Id = id;
+	public void setId(int userId) {
+		this.userId = userId;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String userName) {
+		this.userName = userName;
 	}
 }

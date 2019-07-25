@@ -36,14 +36,14 @@ public class WorkersController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	//Obtains the employees table
 	@GetMapping(path = "/employeesTable", produces = {"application/json"})
 	public ResponseEntity<?> getWorkers()
 	{
 		return new ResponseEntity<List<Workers>>((List<Workers>) workersRepository.findAll(), HttpStatus.OK);
 	}
 	
-	
-	
+	//Creates an employee
 	@PostMapping(path = "/createEmployee", consumes = {"application/json"})
 	public ResponseEntity<?> registerWorker(@Valid @RequestBody WorkersForm workersForm)
 	{
@@ -58,7 +58,7 @@ public class WorkersController {
 			
 			List<Workers> workersList = (List<Workers>) workersRepository.findAll();
 
-			
+			//Verify if the worker already exists with the given email
 			for (Workers foundWorker : workersList)
 			{
 				if (foundWorker.getEmail().equals(worker.getEmail()))
@@ -78,15 +78,15 @@ public class WorkersController {
 		}
 	} 
 	
+	//Deletes an employee
 	@DeleteMapping(path = "/employeesTable/{employeeId}")
 	public ResponseEntity<?> deleteWorker(@PathVariable Long employeeId)
 	{
 		String message;
-		String workerName;
 		
 		if (workersRepository.existsById(employeeId))
 		{
-			workerName = workersRepository.findById(employeeId).get().getName();
+			String workerName = workersRepository.findById(employeeId).get().getName();
 			workersRepository.deleteById(employeeId);
 			message = workerName + " foi eliminado.";
 			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);

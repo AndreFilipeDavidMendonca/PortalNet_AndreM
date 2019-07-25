@@ -1,5 +1,6 @@
 <body>
 <div class="main">
+   <br>
       <app-alert></app-alert>
     <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
 
@@ -41,8 +42,7 @@
                     <div *ngIf="f.password.errors.required">Introduza a sua palavra-passe!</div>
                 </div>        
               </div>
-             <button type="submit" class="btn btn-primary" [disabled]="loading" style="cursor: pointer;">Login</button> |
-             <button type="submit" class="btn btn-primary" routerLink="/administrator" style="cursor: pointer;">Admin</button>
+             <button type="submit" class="btn btn-primary" style="cursor: pointer;">Login</button>
           </form>
        </div>
     </div>

@@ -5,7 +5,7 @@ export class User {
     public userEmail: string;
     public userName: string;
     public role: string;
-    accessToken?: string;
+    jwt?: string;
     authorities: Authority[];
 
     constructor(userId: number, userEmail: string, userName: string, role: string) {

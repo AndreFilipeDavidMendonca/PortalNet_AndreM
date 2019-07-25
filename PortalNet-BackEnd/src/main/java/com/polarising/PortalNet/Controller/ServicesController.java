@@ -1,6 +1,5 @@
 package com.polarising.PortalNet.Controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.polarising.PortalNet.Forms.ServiceForm;
 import com.polarising.PortalNet.Repository.ServiceRepository;
 import com.polarising.PortalNet.Response.ResponseMessage;
+import com.polarising.PortalNet.Utilities.DateFormatHelper;
 import com.polarising.PortalNet.Utilities.PortalNetHttpRequest;
 import com.polarising.PortalNet.model.Services;
 
@@ -30,45 +30,47 @@ public class ServicesController {
 	@Autowired
 	PortalNetHttpRequest httpRequest;
 	
+	@Autowired
+	DateFormatHelper dateFormatHelper;
+	
+	//Obtain list of services (accessible to ADMIN and EMPLOYEE)
 	@RequestMapping(path = "/servicesTable", produces= {"application/json"})
 	public List<Services> getServices()
 	{
 		return (List<Services>) serviceRepository.findAll();
 	}
 	
+	//Obtain list of services for home page (accessible to all)
 	@GetMapping(path = "/home", produces= {"application/json"})
 	public List<Services> getServicesForHomePage()
 	{
 		return (List<Services>) serviceRepository.findAll();
 	}
 	
+	//Get service by name
 	@GetMapping(path = "/registration/{name}", produces= {"application/json"})
 	public ResponseEntity<?> getByName(@PathVariable String name)
 	{	
 		return new ResponseEntity<List<Services>>((List<Services>) serviceRepository.findByName(name), HttpStatus.OK);
 	} 
 	
+	//Create a service
 	@PostMapping(path = "/createService", consumes = {"application/json"})
 	public ResponseEntity<?> registerService(@RequestBody ServiceForm serviceForm)
 	{	
 		String message;
-		String name;
 
-		
-		name = serviceForm.getName();
+		String name = serviceForm.getName();
 		String imgUrl = "assets/img/" + serviceForm.getImgName();
-		String creationDate = Calendar.getInstance().getTime().toString();
+		String creationDate = dateFormatHelper.dateFormater();
 		boolean status = true;
-		
-		
-	
 		
 		Services newService = new Services(serviceForm.getName(), serviceForm.getTv(), serviceForm.getInternet(), serviceForm.getPhone(),
 											serviceForm.getMobilePhone(), serviceForm.getLoyalty(), serviceForm.getPrice(), creationDate, status, imgUrl, serviceForm.getImgName());
-		
+
 		List<Services> servicesList = (List<Services>) serviceRepository.findAll();
 		
-		
+		//Checking for services with the same name
 		for (Services service : servicesList)
 		{
 			if (service.getName().equals(newService.getName()))
@@ -84,54 +86,21 @@ public class ServicesController {
 		return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
 	}
 	
-//	@PutMapping(path = "/servicesTable/{serviceID}")
-//	public ResponseEntity<?> updateService (@PathVariable Long serviceID)
-//	{
-//		String message;
-//		String serviceName;
-//		
-//		if (serviceRepository.existsById(serviceID))
-//		{	
-//			if (serviceRepository.findByServiceID(serviceID).get(0).isStatus() == true)
-//			{
-//				serviceRepository.findByServiceID(serviceID).get(0).setStatus(false);
-//				serviceRepository.save(serviceRepository.findByServiceID(serviceID).get(0));
-//			}
-//			else
-//			{
-//				serviceRepository.findByServiceID(serviceID).get(0).setStatus(true);
-//				serviceRepository.save(serviceRepository.findByServiceID(serviceID).get(0));
-//			}
-//			
-//			serviceName = serviceRepository.findById(serviceID).get().getName();
-//			message = serviceName + " foi atualizado.";
-//			
-//			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
-//		}
-//		else
-//		{
-//			message = "O serviço não existe.";
-//			return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-//		}
-//	}
-	
+	//Update service details
 	@PutMapping(path = "/servicesTable")
     public ResponseEntity<?> updateService (@RequestBody Services service)
     {
         String message;
-        String serviceName;
-       
+               
         if (serviceRepository.existsById(service.getServiceID()))
         {   
-           
-            serviceName = serviceRepository.findById(service.getServiceID()).get().getName();
-           
+            String serviceName = serviceRepository.findById(service.getServiceID()).get().getName();
+          
             message = serviceName + " foi atualizado.";
            
             serviceRepository.save(service);
            
             return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
-           
         }
         else
         {

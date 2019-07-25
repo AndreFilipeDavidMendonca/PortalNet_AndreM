@@ -24,6 +24,7 @@ public class WorkersCommandLineRunner implements CommandLineRunner{
 		workersRepository.save(new Workers("Solange", "solange@admin.com", "ADMIN", "yesno"));
 		workersRepository.save(new Workers("Gonçalo", "rui@admin.com", "ADMIN", "noyes"));
 		
+		//Password encryption
 		for (Workers worker : workersRepository.findAll())
 		{
 			worker.setPassword(passwordEncoder.encode(worker.getPassword()));

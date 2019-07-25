@@ -51,10 +51,10 @@ export class AuthenticationService {
 //   }
 
 
-
   persistUser() {
     this.user = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(this.user);
+    console.log(this.currentUser);
     return this.currentUser;
   }
 }

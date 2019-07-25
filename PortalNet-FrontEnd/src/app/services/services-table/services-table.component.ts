@@ -5,6 +5,9 @@ import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/alert.service';
 import { ServicesService } from 'src/app/services.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/user.model';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { AppComponent } from 'src/app/app.component';
 
 
 
@@ -26,8 +29,18 @@ export class ServicesTableComponent implements OnInit {
   services: Service[] = [];
   success = '';
   message: string;
+  currentUser: User;
 
-  constructor(private servicesService: ServicesService, private modalService: NgbModal, private alertService: AlertService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private servicesService: ServicesService, 
+    private appComponent: AppComponent, 
+    private authenticationService: AuthenticationService, 
+    private modalService: NgbModal, 
+    private alertService: AlertService, 
+    private router: Router, 
+    private route: ActivatedRoute) {
+      
+    this.currentUser = this.authenticationService.currentUserValue;
+   }
 
 
   ngOnInit() {

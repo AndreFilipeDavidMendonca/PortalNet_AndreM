@@ -21,7 +21,6 @@ export class EmployeesTableComponent implements OnInit {
   fetchEmployees() {
     this.employeesService.getAll().pipe(first()).subscribe(employees => {
       this.employees = employees;
-      console.log(employees);
      });
 
   }
@@ -37,6 +36,7 @@ export class EmployeesTableComponent implements OnInit {
       },
         error => {
           this.alertService.error(error);
+          console.log(error.message);
           this.fetchEmployees();
         });
     } 
