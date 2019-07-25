@@ -38,7 +38,7 @@ export class ServicesTableComponent implements OnInit {
     private alertService: AlertService, 
     private router: Router, 
     private route: ActivatedRoute) {
-      
+
     this.currentUser = this.authenticationService.currentUserValue;
    }
 
@@ -84,7 +84,6 @@ export class ServicesTableComponent implements OnInit {
   }
 
   onUpdateService(service: Service) {
-    console.log(service); 
     this.submitted = true;
 
     // reset alerts on submit
@@ -104,7 +103,6 @@ export class ServicesTableComponent implements OnInit {
             },
             error => {
               this.alertService.error(JSON.parse(JSON.stringify(error)));
-              console.log(error);
       });
   }
 }

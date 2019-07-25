@@ -36,7 +36,6 @@ export class EmployeesTableComponent implements OnInit {
       },
         error => {
           this.alertService.error(error);
-          console.log(error.message);
           this.fetchEmployees();
         });
     } 
