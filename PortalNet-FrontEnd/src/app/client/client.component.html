@@ -2,21 +2,27 @@
 <br><br><br>
 <app-alert></app-alert>
 <div class="side-nav">
-  <div class="row">
-    <div class="col-ms-12" >
-      <h2>Nome Completo</h2>
-      <h4>{{ client.name }}</h4>
-      <br><br>
-      <h2>Número de Cliente</h2>
-      <h4>{{ client.clientNumber }}</h4>
-      <br><br>
-      <h2>Associar Serviço</h2>
-      <a (click)="openModalAssociateService(ASModal)" class="edit">
-        <i class="material-icons">edit</i>
-      </a>
-    </div>
+  <div class="col-ms-12" >
+      <ul class="client">
+        <li>
+          <h4>Nome Completo</h4>
+          <h2>{{ client.name }}</h2>
+        </li>
+        <li>
+          <h4>Número de Cliente</h4>
+          <h2>{{ client.clientNumber }}</h2>
+        </li>
+        <li>
+          <h4>Associar Serviço</h4>
+          <a (click)="openModalAssociateService(ASModal)" class="edit">
+            <i class="material-icons">edit</i>
+          </a>
+        </li>
+      </ul>
   </div>
 </div>
+<hr>
+<br>
 <div class="container" >
   <div class="row" >
     <table class="table table-borderless" >
@@ -149,8 +155,10 @@
       </table>
   </div>
 </div>
+<br><br><br>
 <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
-<br><br><br><br>
+<br><br>
+
       
 <!--Modal Change Address-->
 <ng-template #address let-modal>

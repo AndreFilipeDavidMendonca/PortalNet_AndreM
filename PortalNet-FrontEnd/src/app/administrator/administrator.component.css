@@ -31,3 +31,8 @@ p.card-text {
     width: 100%;
 }
 
+hr {
+    color: lightgray;
+    background-color: lightgray;
+    width: 50%;
+}

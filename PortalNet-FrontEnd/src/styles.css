@@ -18,3 +18,18 @@ a.close .material-icons {
 a.btn.btn-primary .material-icons {
     font-size: 97%;
 }
+
+a.logout {
+    margin-left: 5%;
+    position: absolute;
+}
+
+a.logout .material-icons {
+    font-size: 250%;
+    color:  rgb(43, 75, 255);
+}
+
+a.logout .material-icons:hover {
+    color:  rgb(0, 110, 255);
+}
+

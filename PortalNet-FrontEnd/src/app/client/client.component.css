@@ -1,17 +1,22 @@
 .container {
-    width: 60%;
-    margin: 2% 35%;
+    width: 65%;
+    margin: 2% auto 0;
     font-size: 120%;
 }
 
 .side-nav {
-    margin: 5% 5%;
-    position: absolute;
+    margin: 2% 1%;
+    width: 80%;
 }
 .side-nav h2 {
     font-family: 'DM Sans', sans-serif;
     color: rgb(51, 102, 214);
 
+}
+
+a.edit .material-icons {
+    color: rgb(51, 102, 214);
+    font-size: 200%;
 }
 
 
@@ -35,4 +40,15 @@
  #enviar {
     float: right;
     margin-right: 10%;
+ }
+
+ .col-ms-12 ul.client li{
+     display: inline-block;
+     margin-left: 17%;
+ }
+
+ hr {
+     color: lightgray;
+     background-color: lightgray;
+     width: 100%;
  }

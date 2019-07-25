@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.polarising.PortalNet.model.Workers;
 
 @Repository
-public interface WorkersRepository extends CrudRepository<Workers, Long>{
+public interface WorkersRepository extends CrudRepository<Workers, Integer>{
 
 	List<Workers> findByName(String name);
 	List<Workers> findByEmail(String email);

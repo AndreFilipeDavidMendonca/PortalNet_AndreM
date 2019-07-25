@@ -38,7 +38,7 @@ export class ClientComponent implements OnInit {
   }
   
   fetchServices() {
-    this.servicesService.getAll().pipe(first()).subscribe(services => {
+    this.servicesService.getHomeServices().pipe(first()).subscribe(services => {
       this.services = services;
       this.filteredServices = this.services.filter(x =>  (x.status === true));
      });

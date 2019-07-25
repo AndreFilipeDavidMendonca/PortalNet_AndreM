@@ -7,15 +7,13 @@
    <br>
       <app-alert></app-alert>
     <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
-    
-
     <div class="col-md-12">
       <div class="side-nav">
         <h1>PortalNet</h1>
         <div class="services">
             <ngb-carousel>
                <ng-template *ngFor="let service of filteredServices; let i= index" ngbSlide>
-                 <img src="{{service.imgUrl}}" alt="Random first slide">
+                 <img src="{{service.imgUrl}}">
                  <div class="carousel-caption">
                   <h1 class="serviceName">{{ service.name }}</h1><br>
                   <p *ngIf="service.tv != '0'">Televisão - {{ service.tv }} Canais</p> 
@@ -23,7 +21,7 @@
                   <p *ngIf="(service.phone != '0') && (service.phone != 'Minutos Ilimitados')"> Telefone - {{ service.phone }} Minutos</p>
                   <p *ngIf="service.phone === 'Minutos Ilimitados'"> Telefone - {{ service.phone }}</p>
                   <p *ngIf="service.mobilePhone != '0'"> Telemóvel - {{ service.mobilePhone }} GB </p>
-                   <h3>{{ service.price }}€</h3>
+                  <h3>{{ service.price }}€</h3>
                  </div>
                </ng-template>
              </ngb-carousel>

@@ -80,7 +80,7 @@ public class WorkersController {
 	
 	//Deletes an employee
 	@DeleteMapping(path = "/employeesTable/{employeeId}")
-	public ResponseEntity<?> deleteWorker(@PathVariable Long employeeId)
+	public ResponseEntity<?> deleteWorker(@PathVariable Integer employeeId)
 	{
 		String message;
 		

@@ -27,6 +27,7 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 	
 	private static final Logger logger = org.slf4j.LoggerFactory.getLogger(JwtAuthFilter.class);
 	
+	//Where we decode the token
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

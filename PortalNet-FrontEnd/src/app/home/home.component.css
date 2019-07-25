@@ -3,17 +3,17 @@
 }
 
 .main {
-    margin-top: 1%;
+    margin-top: -1%;
     position: absolute;
     width: 100%;
     z-index: 0;
     overflow: hidden;
-    height: calc(100vh - 100px);
+    height: calc(100vh);
 }
 
 .login-form  {
-    margin: 25% 130%;
-    width: 50%;   
+    margin: 26% 140%;
+    width: 40%;   
 }
 
 .carousel-caption {
@@ -23,7 +23,7 @@
 .side-nav {
     position: absolute;
     margin: 5% 5%;
-    width: 55%;
+    width: 60%;
 }
 
 .side-nav img {
@@ -39,7 +39,7 @@ font-weight: 400px;
 .serviceName {
     margin-top: -3.6%;
     font-size: 320%;
-    font-weight: 400px;
+    font-weight: 400%;
     text-align: center;
     color: white;
     background-color: rgba(51, 102, 214, 0.9);
@@ -67,8 +67,12 @@ font-weight: 400px;
 }
 @media (max-width: 1000px){
 
+    .col-md-12 {
+        width: 140%;
+    }
+
     .login-form  {
-        margin: 80% 5%;
+        margin: 110% auto 0;
         width: 90%;
     }
 
@@ -82,13 +86,23 @@ font-weight: 400px;
         position: absolute;
         width: 100%;
     }
-
-    .side-nav {
-        position: absolute;
-        margin: 15% 3%;
-        
+    
+    .serviceName {
+        font-size: 50%;
     }
 
+    .services .carousel-caption p {
+        font-size: 50%;
+    }
+
+    .services .carousel-caption h3 {
+        font-size: 50%;
+    }
+
+    .services .carousel-caption {
+        width: 70%;
+    }
+    
     form.form-group span {
         color: red;
     }
