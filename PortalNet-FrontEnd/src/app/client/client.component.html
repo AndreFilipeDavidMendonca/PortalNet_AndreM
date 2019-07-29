@@ -1,37 +1,27 @@
 <body>
 <br><br><br>
 <app-alert></app-alert>
-<div class="side-nav">
-  <div class="col-ms-12" >
-      <ul class="client">
-        <li>
-          <h4>Nome Completo 
-            <a (click)="openModalBirthDate(birthDate)" style="font-size: 60%;" class="edit">
-              <i class="material-icons">edit</i>
-            </a>
-          </h4>
-          <h2>{{ client.name }}</h2>         
-        </li>
-        <li>
-          <h4>Número de Cliente</h4>
-          <h2>{{ client.clientNumber }}</h2>
-        </li>
-        <li>
-          <h4>Associar Serviço</h4>
-          <a (click)="openModalAssociateService(ASModal)" class="edit">
-            <i class="material-icons">edit</i>
-          </a>
-        </li>
-      </ul>
-  </div>
-</div>
-<hr>
 <br>
 <div class="container" >
   <div class="row" >
     <table class="table table-borderless" >
           <tr>
-            <td>Data de Nascimento</td>
+            <td class="title">Número de Cliente</td>
+            <td>{{ client.clientNumber }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">Nome Completo</td>
+            <td>{{ client.name }}</td>
+            <td>
+              <a (click)="openModalName(name)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td class="title">Data de Nascimento</td>
             <td>{{ client.birthDate }}</td>
             <td>
               <a (click)="openModalBirthDate(birthDate)" class="edit">
@@ -40,7 +30,7 @@
             </td>
           </tr>
           <tr>
-            <td>NIF</td>
+            <td class="title">NIF</td>
             <td>{{ client.nif }}</td>
             <td>
               <a (click)="openModalNif(nif)" class="edit">
@@ -49,7 +39,7 @@
             </td>
           </tr>
           <tr>
-            <td>Gender</td>
+            <td class="title">Gender</td>
             <td>{{ client.gender }}</td>
             <td>
               <a (click)="openModalGender(gender)" class="edit">
@@ -58,7 +48,7 @@
             </td>
           </tr>
           <tr>
-            <td>Morada</td>
+            <td class="title">Morada</td>
             <td>{{ client.address }}</td>
             <td>
               <a (click)="openModalAddress(address)" class="edit">
@@ -67,7 +57,7 @@
             </td>
           </tr>
           <tr>
-            <td>Localidade</td>
+            <td class="title">Localidade</td>
             <td>{{ client.city }}</td>
             <td>
               <a (click)="openModalLocality(city)" class="edit">
@@ -76,7 +66,7 @@
             </td>
           </tr>
           <tr>
-            <td >Código-Postal</td>
+            <td class="title">Código-Postal</td>
             <td>{{ client.postalCode }}</td>
             <td>
               <a (click)="openModalPostalCode(postalCode)" class="edit">
@@ -85,7 +75,7 @@
             </td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td class="title">Email</td>
             <td>{{ client.email }}</td>
             <td>
               <a (click)="openModalEmail(email)" class="edit">
@@ -94,7 +84,7 @@
             </td>
           </tr>
           <tr>
-            <td>Telemóvel</td>
+            <td class="title">Telemóvel</td>
             <td>{{ client.mobilePhone }}</td>
             <td>
               <a (click)="openModalMobilePhone(mobilePhone)" class="edit">
@@ -103,7 +93,7 @@
             </td>
           </tr>
           <tr>
-              <td>Telefone</td>
+              <td class="title">Telefone</td>
               <td>{{ client.phone }}</td>
               <td>
                 <a (click)="openModalPhone(phone)" class="edit">
@@ -112,7 +102,7 @@
               </td>
           </tr>
           <tr>
-            <td>Serviço</td>
+            <td class="title">Serviço</td>
             <td>{{ client.serviceName }}</td>
             <td>
               <a (click)="openModalService(service)" class="edit">
@@ -121,31 +111,31 @@
             </td>
           </tr>
           <tr>
-            <td>Serviços Associados</td>
+            <td class="title">Serviços Associados</td>
             <td>{{ client.numberOfServices }}</td>
             <td>
             </td>
           </tr>
           <tr>
-            <td>Data de Inscrição</td>
+            <td class="title">Data de Inscrição</td>
             <td>{{ client.entryDate }}</td>
             <td>
             </td>
           </tr>
           <tr>
-            <td>Fim de Contracto</td>
+            <td class="title">Fim de Contracto</td>
             <td>{{  client.endContract }}</td>
             <td>
             </td>
           </tr>
           <tr>
-            <td>Mensalidade</td>
+            <td class="title">Mensalidade</td>
             <td>{{ client.monthlyPay }}€</td>
             <td>
             </td>
           </tr>
           <tr>
-            <td>Pagamentos</td>
+            <td class="title">Pagamentos</td>
             <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
             <td *ngIf="client.fraudulent === false">Em Ordem</td>
             <td>
@@ -155,12 +145,12 @@
             </td>
           </tr>
           <tr>
-            <td>Estado</td>
+            <td class="title">Estado</td>
             <td *ngIf="client.status === false" style="color: red; ">Desactiva</td>
             <td *ngIf="client.status === true">Activa</td>
             <td>
-              <a class="delete" (click)="openModalStatus(status)"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
-                <i class="material-icons">delete</i>
+              <a class="edit" (click)="openModalStatus(status)"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
+                <i class="material-icons">edit</i>
               </a>
             </td>
           </tr>

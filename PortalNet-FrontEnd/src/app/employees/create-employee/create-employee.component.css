@@ -39,3 +39,9 @@ html {
     font-size: 13px;
     color: red;
  }
+
+ .buttonBack {
+    float: left;
+    position:absolute;
+    margin: 2% 0 0 5%;
+ }

@@ -74,7 +74,7 @@ export class CreateEmployeeComponent implements OnInit {
             .subscribe(
               success => {
                 this.alertService.success(success.message);
-                // setTimeout(() => { this.router.navigate(['/clientTable']); }, 1500);
+                setTimeout(() => { this.router.navigate(['/employeesTable']); }, 1500);
               },
               error => {
                 this.alertService.error(JSON.parse(JSON.stringify(error)));

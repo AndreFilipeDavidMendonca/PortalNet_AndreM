@@ -34,3 +34,7 @@ a.logout .material-icons:hover {
     color: rgb(51, 102, 214);
 }
 
+a.return .material-icons {
+    font-size: 300%;
+    color: black;
+}

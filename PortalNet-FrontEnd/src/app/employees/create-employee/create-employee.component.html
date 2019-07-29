@@ -3,6 +3,11 @@
 <body >
   <br><br><br> 
 <app-alert></app-alert>
+<div class="col-md-0" class="buttonBack">
+        <a class="return" title="Voltar"  data-toggle="tooltip" [routerLink]="['/administrator']" style="cursor: pointer;">
+            <i class="material-icons">arrow_back_ios</i>
+        </a>
+    </div>
 <div class="container">
     <form class="form-horizontal" role="form" (ngSubmit)="onSubmit()" [formGroup]="EmployeeForm">
         <h2 id="title">Criar Colaborador</h2>

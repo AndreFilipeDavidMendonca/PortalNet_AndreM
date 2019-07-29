@@ -32,7 +32,7 @@ export class EmployeesTableComponent implements OnInit {
     if (alert) {
       this.employeesService.deleteEmployee(employeeId).subscribe(success => {
         this.alertService.success(success.message);
-        // setTimeout(() => { this.alertService.clear(); }, 2000);
+        setTimeout(() => { this.router.navigate(['/employeesTable']); }, 1500);
         this.fetchEmployees();
       },
         error => {
