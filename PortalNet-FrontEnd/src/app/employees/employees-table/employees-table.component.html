@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
   </head>
   <body>
-    <br><br><br>
     <app-alert></app-alert>
     <br>
     <div class="row">
@@ -14,11 +13,8 @@
           <a  routerLink="/createEmployee" class="btn btn-primary" *ngIf="appComponent.isAdmin()">
             <i class="material-icons" >&#xE147;</i> <span style="color: white;">&ensp;Criar Colaborador</span>
           </a>
-          <div class="col-md-0" class="buttonBack">
-                <a class="return" title="Voltar"  data-toggle="tooltip" [routerLink]="['/administrator']" style="cursor: pointer;">
-                    <i class="material-icons">arrow_back_ios</i>
-                </a>
-            </div>
+          <br>
+          <br>
           <table class="table">
             <thead>
                 <tr>

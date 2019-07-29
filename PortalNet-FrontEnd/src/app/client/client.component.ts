@@ -52,12 +52,27 @@ export class ClientComponent implements OnInit {
 
   openBackDropCustomClass(content) {
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
-    
+  }
+
+  openModalName(name) {
+    this.modalService.open(name, { windowClass: 'dark-modal' });
+  }
+
+  openModalNif(nif) {
+    this.modalService.open(nif, { windowClass: 'dark-modal' });
+  }
+
+  openModalBirthDate(birthDate) {
+    this.modalService.open(birthDate, { windowClass: 'dark-modal' });
   }
 
   openModalAddress(address) {
     this.modalService.open(address, { windowClass: 'dark-modal' });
     this.placeHolder = 'Introduza a nova Morada!'
+  }
+
+  openModalGender(gender) {
+    this.modalService.open(gender, { windowClass: 'dark-modal' });
   }
 
   openModalPostalCode(postalCode) {

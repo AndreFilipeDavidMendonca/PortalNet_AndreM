@@ -38,3 +38,15 @@ a.return .material-icons {
     font-size: 300%;
     color: black;
 }
+
+nav li.nav-item a{
+    font-size: 130%;
+  }
+
+nav li.nav-item {
+  margin-left: 5%;
+}
+
+nav li.nav-item a.dropdown-item {
+    font-size: 90%;
+}

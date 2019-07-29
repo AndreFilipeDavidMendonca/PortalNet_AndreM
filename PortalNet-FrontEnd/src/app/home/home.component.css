@@ -3,7 +3,6 @@
 }
 
 .main {
-    margin-top: -1%;
     position: absolute;
     width: 100%;
     z-index: 0;
@@ -12,7 +11,7 @@
 }
 
 .login-form  {
-    margin: 26% 140%;
+    margin: 26% 150%;
     width: 40%;   
 }
 
@@ -22,8 +21,8 @@
 
 .side-nav {
     position: absolute;
-    margin: 5% 5%;
-    width: 60%;
+    margin: 0 auto 0;
+    width: 68%;
 }
 
 .side-nav img {
@@ -82,7 +81,6 @@ font-weight: 400px;
     }
 
     .main {
-        margin-top: 20%;
         position: absolute;
         width: 100%;
     }

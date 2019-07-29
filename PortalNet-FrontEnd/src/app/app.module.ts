@@ -32,6 +32,8 @@ import { LoadingSpinnerComponent } from './loading/loading-spinner.component';
 
 
 
+
+
 const appRoutes: Routes =  [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -62,7 +64,7 @@ const appRoutes: Routes =  [
     EmployeesTableComponent,
     AlertComponent,
     FilterPipe,
-    LoadingSpinnerComponent,
+    LoadingSpinnerComponent
  
   ],
 
@@ -72,9 +74,9 @@ const appRoutes: Routes =  [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     NgbModalModule.forRoot(),
-    NgbModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule.forRoot(),
   ],
   
   providers: [
