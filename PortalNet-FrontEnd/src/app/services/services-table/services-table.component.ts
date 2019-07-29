@@ -103,6 +103,7 @@ export class ServicesTableComponent implements OnInit {
             },
             error => {
               this.alertService.error(JSON.parse(JSON.stringify(error)));
+              console.log(error.message);
       });
   }
 }

@@ -9,6 +9,8 @@ import { ServicesService } from '../services.service';
 import { Service } from '../service.model';
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../user.model';
+import { UtilsService } from '../utils.service';
+import { AppComponent } from '../app.component';
 
 
 
@@ -27,13 +29,16 @@ export class ClientComponent implements OnInit {
   @Input() public client: Client;
   @Input() clientId: number;
   services: Service[] = [];
+  service: Service;
   placeHolder: string;
   clientToJSON: string;
   submitted = false;
   filteredServices: Service[] = [];
   currentUser: User;
+  selectedService: string;
+  servicePrice: number;
   
-  constructor(private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
+  constructor(private appComponent: AppComponent ,private utilsService: UtilsService ,private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
   
@@ -123,7 +128,8 @@ export class ClientComponent implements OnInit {
     this.fetchServices();
     this.route.paramMap.subscribe(data => {
     this.clientId = +data.get('clientId');
-    this.fetchClientById();
+    this.fetchClientById()
+    // this.fetchServiceByName();
     });  
   }
 
@@ -133,7 +139,17 @@ export class ClientComponent implements OnInit {
     this.passEntry.emit(this.client);
   }
 
- 
+  // fetchServiceByName(){
+  //   this.selectedService = this.client.serviceName;
+  //   console.log(this.selectedService);
+  //   this.servicesService.getByServiceName(this.selectedService)
+  //     .pipe(first())
+  //     .subscribe(service => {
+  //       this.service = service[0];
+  //       this.servicePrice = this.service.price;
+  //       return this.servicePrice;
+  //     });
+  // }
   
   onSubmit() {
     this.submitted = true;

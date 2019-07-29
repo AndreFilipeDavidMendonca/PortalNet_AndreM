@@ -34,7 +34,7 @@ public class ServicesController {
 	DateFormatHelper dateFormatHelper;
 	
 	//Obtain list of services (accessible to ADMIN and EMPLOYEE)
-	@RequestMapping(path = "/servicesTable", produces= {"application/json"})
+	@GetMapping(path = "/servicesTable", produces= {"application/json"})
 	public List<Services> getServices()
 	{
 		return (List<Services>) serviceRepository.findAll();
@@ -52,6 +52,13 @@ public class ServicesController {
 	public ResponseEntity<?> getByName(@PathVariable String name)
 	{	
 		return new ResponseEntity<List<Services>>((List<Services>) serviceRepository.findByName(name), HttpStatus.OK);
+	} 
+	
+	
+	@GetMapping(path = "/servicesTable/{serviceID}", produces= {"application/json"})
+	public ResponseEntity<?> getById(@PathVariable Long serviceID)
+	{	
+		return new ResponseEntity<List<Services>>((List<Services>) serviceRepository.findByServiceID(serviceID), HttpStatus.OK);
 	} 
 	
 	//Create a service

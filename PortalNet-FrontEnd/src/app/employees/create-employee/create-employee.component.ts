@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertComponent } from '../../alerts/alert.component';
 import { Employee } from '../../employee.model';
 import { EmployeesService } from '../../employees.service';
+import { UtilsService } from 'src/app/utils.service';
 
 @Component({
   selector: 'app-create-employee',
@@ -27,7 +28,8 @@ export class CreateEmployeeComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private employeesService: EmployeesService) { }
+    private employeesService: EmployeesService,
+    private utilsService: UtilsService) { }
   
   
   
@@ -40,12 +42,18 @@ export class CreateEmployeeComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+    },
+    {
+      validator: this.utilsService.MustMatch('password', 'confirmPassword'),
     });
   
   }
 
+  get f() {
+    return this.EmployeeForm.controls;
+  }
 
   onSubmit() {
       this.submitted = true;

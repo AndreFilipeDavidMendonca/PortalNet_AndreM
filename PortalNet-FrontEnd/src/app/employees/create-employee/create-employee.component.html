@@ -27,14 +27,21 @@
             <label for="password" class="col-sm-4 control-label">Palavra-Passe*</label>
             <div class="col-sm-12">
                 <input type="password" id="password" placeholder="Introduza a Palavra-Passe" class="form-control" formControlName="password">
-                <span class="help-block" *ngIf="EmployeeForm.controls['password'].hasError('required') && EmployeeForm.controls['password'].touched">Introduza uma palavra-passe!</span>
+                <div *ngIf="!!f.password.errors && EmployeeForm.controls['password'].touched">
+                    <span *ngIf="!!f.password.errors.required">Introduza uma senha!</span>
+                    <span *ngIf="!!f.password.errors.minlength">Introduza uma senha com mais de 6 caracteres!</span>
+                    <span *ngIf="!!f.password.errors.maxlength">Introduza uma senha com menos de 15 caracteres!</span>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label for="confirmPassword" class="col-sm-5 control-label">Confirmar Palavra-Passe*</label>
             <div class="col-sm-12">
                 <input type="password" id="confirmPassword" placeholder="Confirme a Palavra-Passe" class="form-control" formControlName="confirmPassword">
-                <span class="help-block" *ngIf="EmployeeForm.controls['confirmPassword'].hasError('required') && EmployeeForm.controls['confirmPassword'].touched">Confirme a sua palavra-passe!</span>
+                <div *ngIf="!!f.confirmPassword.errors && EmployeeForm.controls['confirmPassword'].touched">
+                    <span *ngIf="!!f.confirmPassword.errors.required">Confirme a sua senha</span>
+                    <span *ngIf="!!f.confirmPassword.errors.mustMatch">As senhas não correspondem</span>
+                </div>
             </div>
         </div>
         <div class="form-group">

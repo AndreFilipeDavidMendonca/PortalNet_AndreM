@@ -5,8 +5,8 @@
 }
 
 .side-nav {
-    margin: 2% 1%;
-    width: 80%;
+    margin: 2% auto 0;
+    width: 100%;
 }
 .side-nav h2 {
     font-family: 'DM Sans', sans-serif;

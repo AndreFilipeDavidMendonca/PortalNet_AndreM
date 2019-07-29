@@ -5,8 +5,12 @@
   <div class="col-ms-12" >
       <ul class="client">
         <li>
-          <h4>Nome Completo</h4>
-          <h2>{{ client.name }}</h2>
+          <h4>Nome Completo 
+            <a (click)="openModalBirthDate(birthDate)" style="font-size: 60%;" class="edit">
+              <i class="material-icons">edit</i>
+            </a>
+          </h4>
+          <h2>{{ client.name }}</h2>         
         </li>
         <li>
           <h4>Número de Cliente</h4>
@@ -30,42 +34,27 @@
             <td>Data de Nascimento</td>
             <td>{{ client.birthDate }}</td>
             <td>
+              <a (click)="openModalBirthDate(birthDate)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
             </td>
           </tr>
           <tr>
             <td>NIF</td>
             <td>{{ client.nif }}</td>
             <td>
-            </td>
-          </tr>
-          <tr>
-            <td>Data de Inscrição</td>
-            <td>{{ client.entryDate }}</td>
-            <td>
-            </td>
-          </tr>
-          <tr>
-            <td>Fim de Contracto</td>
-            <td>{{  client.endContract }}</td>
-            <td>
-            </td>
-          </tr>
-          <tr>
-            <td>Serviços Associados</td>
-            <td>{{ client.numberOfServices }}</td>
-            <td>
-            </td>
-          </tr>
-          <tr>
-            <td>Mensalidade</td>
-            <td>{{ client.monthlyPay }}</td>
-            <td>
+              <a (click)="openModalNif(nif)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
             </td>
           </tr>
           <tr>
             <td>Gender</td>
             <td>{{ client.gender }}</td>
             <td>
+              <a (click)="openModalGender(gender)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
             </td>
           </tr>
           <tr>
@@ -132,21 +121,45 @@
             </td>
           </tr>
           <tr>
+            <td>Serviços Associados</td>
+            <td>{{ client.numberOfServices }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Data de Inscrição</td>
+            <td>{{ client.entryDate }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Fim de Contracto</td>
+            <td>{{  client.endContract }}</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>Mensalidade</td>
+            <td>{{ client.monthlyPay }}€</td>
+            <td>
+            </td>
+          </tr>
+          <tr>
             <td>Pagamentos</td>
             <td *ngIf="client.fraudulent === true" style="color: red;">Em Dívida</td>
             <td *ngIf="client.fraudulent === false">Em Ordem</td>
             <td>
-              <a (click)="openModalFraudulent(fraudulent)" class="edit">
+              <a (click)="openModalFraudulent(fraudulent)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                   <i class="material-icons">edit</i>
               </a>
             </td>
           </tr>
           <tr>
             <td>Estado</td>
-            <td *ngIf="client.status === false" style="color: red;">Desactiva</td>
+            <td *ngIf="client.status === false" style="color: red; ">Desactiva</td>
             <td *ngIf="client.status === true">Activa</td>
             <td>
-              <a class="delete" (click)="openModalStatus(status)">
+              <a class="delete" (click)="openModalStatus(status)"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">delete</i>
               </a>
             </td>
@@ -159,7 +172,58 @@
 <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
 <br><br>
 
-      
+<!--Modal Change Gender-->
+<ng-template #gender let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Género</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!--Modal Change NIF-->
+<ng-template #nif let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar NIF</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+<!--Modal Change BirthDate-->
+<ng-template #birthDate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alterar Data de Nascimento</h4>
+    <a (click)="modal.dismiss('Cross click')" class="close">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
 <!--Modal Change Address-->
 <ng-template #address let-modal>
   <div class="modal-header">

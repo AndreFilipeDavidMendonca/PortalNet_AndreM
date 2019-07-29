@@ -17,7 +17,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       if (err.status === 400) {
         // this.message = "O registo não foi processado! Certifique se os seus dados estão correctos!"
-        return throwError(this.message);
+        this.authenticationService.logout();
+        this.router.navigate(['/home']);
         // error.message = err.error.message.slice(1, err.error.message.length - 1).split(', ');
       }
       else if (err.status === 401) {
@@ -45,10 +46,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.router.navigate(['/home']);
       }
     
-      else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
-        error.message = "Não foi possível conectar ao servidor!";
-        return throwError(error.message);
-      }
+      // else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
+      //   error.message = "Não foi possível conectar ao servidor!";
+      //   return throwError(error.message);
+      // }
 
       return throwError(error);
 

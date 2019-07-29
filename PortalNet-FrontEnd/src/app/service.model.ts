@@ -1,7 +1,7 @@
 export class Service {
     public serviceID: number;
     public name: string;
-    public internet: string;
+    public internet: number;
     public tv: string;
     public mobilePhone: number;
     public phone: number;
@@ -11,7 +11,7 @@ export class Service {
     public status: boolean;
     public imgUrl: string;
     
-    constructor (serviceID: number, name: string, internet: string, tv: string, mobilePhone: number, phone: number, price: number, loyalty: string, creationDate: string, status: boolean, imgUrl: string)  {
+    constructor (serviceID: number, name: string, internet: number, tv: string, mobilePhone: number, phone: number, price: number, loyalty: string, creationDate: string, status: boolean, imgUrl: string)  {
         this.imgUrl = imgUrl;
         this.serviceID = serviceID;
         this.name = name;

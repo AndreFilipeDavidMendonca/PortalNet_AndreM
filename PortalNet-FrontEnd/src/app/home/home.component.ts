@@ -81,13 +81,14 @@ export class HomeComponent implements OnInit {
             if(this.appComponent.isClient()) {
               this.currentUser = this.authenticationService.currentUserValue;
               this.router.navigate(['/client/', this.currentUser.userId]);
+              console.log(data);
             } else if (this.appComponent.isEmployee() || this.appComponent.isAdmin()) {
               this.router.navigate(['/administrator']);
             }
             },
             error => {
-              this.alertService.error(error);
               this.router.navigate(['/home']);
+              this.alertService.error(error);
               this.isLoading = false;
     });
   }  

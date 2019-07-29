@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/alert.service';
 import { first } from 'rxjs/operators';
 import { EmployeesService } from 'src/app/employees.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-employees-table',
@@ -16,7 +17,7 @@ export class EmployeesTableComponent implements OnInit {
   success = '';
   message: string;
   
-  constructor(private employeesService: EmployeesService, private alertService: AlertService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private employeesService: EmployeesService, private appComponent: AppComponent, private alertService: AlertService, private router: Router, private route: ActivatedRoute) { }
 
   fetchEmployees() {
     this.employeesService.getAll().pipe(first()).subscribe(employees => {

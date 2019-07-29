@@ -10,8 +10,6 @@ import { User } from './user.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-
   currentUser: User;
 
   constructor(

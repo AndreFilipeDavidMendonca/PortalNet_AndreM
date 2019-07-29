@@ -13,11 +13,14 @@
       <div class="table-responsive">
         <div class="title">
           <h2>Tabela de Serviços</h2>
+          <!-- <a routerLink="/"  class="back" (click)="logout()" *ngIf="isLoggedIn()">
+            <i class="material-icons">arrow-back-ios</i>
+          </a> -->
           <a  routerLink="/createService" class="btn btn-primary" *ngIf="appComponent.isAdmin()">
             <i class="material-icons" >&#xE147;</i> <span style="color: white; font-size: 100%;">&ensp;Criar Serviço</span>
           </a>
         </div>
-        <br><br><br>
+        <br><br>
         <table class="table">
           <thead>
               <tr>
@@ -31,7 +34,7 @@
                   <th>Preço</th>
                   <th>Data de Criação</th>
                   <th>Estado</th>
-                  <th class="text-right">Ações</th>
+                  <th class="text-right" *ngIf="appComponent.isAdmin()">Ações</th>
               </tr>
           </thead>
           <tbody>
@@ -54,7 +57,7 @@
                   <td>{{ service.creationDate }}</td>
                   <td *ngIf="service.status === true">Activo</td>
                   <td *ngIf="service.status === false" style="color: red;">Desactivo</td>
-                  <td class="td-actions text-right">
+                  <td class="td-actions text-right" *ngIf="appComponent.isAdmin()">
                     <a  routerLink="/servicesTable" class="edit"  (click)="fetchServiceById(service.serviceID); openModalService(content)" >
                       <i class="material-icons" >edit</i>
                     </a>
