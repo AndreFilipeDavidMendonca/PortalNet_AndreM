@@ -68,7 +68,7 @@ export class CreateServiceComponent implements OnInit {
             .subscribe(
               success => {
                 this.alertService.success(success.message);
-                // setTimeout(() => { this.router.navigate(['/clientTable']); }, 1500);
+                setTimeout(() => { this.router.navigate(['/servicesTable']); }, 2000);
               },
               error => {
                 this.alertService.error(JSON.parse(JSON.stringify(error)));

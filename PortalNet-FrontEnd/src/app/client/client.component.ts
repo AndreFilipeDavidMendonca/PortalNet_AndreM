@@ -129,7 +129,6 @@ export class ClientComponent implements OnInit {
     this.route.paramMap.subscribe(data => {
     this.clientId = +data.get('clientId');
     this.fetchClientById()
-    // this.fetchServiceByName();
     });  
   }
 
@@ -139,18 +138,7 @@ export class ClientComponent implements OnInit {
     this.passEntry.emit(this.client);
   }
 
-  // fetchServiceByName(){
-  //   this.selectedService = this.client.serviceName;
-  //   console.log(this.selectedService);
-  //   this.servicesService.getByServiceName(this.selectedService)
-  //     .pipe(first())
-  //     .subscribe(service => {
-  //       this.service = service[0];
-  //       this.servicePrice = this.service.price;
-  //       return this.servicePrice;
-  //     });
-  // }
-  
+
   onSubmit() {
     this.submitted = true;
 
@@ -166,7 +154,7 @@ export class ClientComponent implements OnInit {
           .subscribe(
             success => {
               this.alertService.success(success.message);
-              // setTimeout(() => { this.router.navigate(['/clientTable']); }, 1500);
+              this.fetchClientById();
             },
             error => {
               this.alertService.error(JSON.parse(JSON.stringify(error)));

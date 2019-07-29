@@ -99,7 +99,7 @@ export class ServicesTableComponent implements OnInit {
             success => {
               this.alertService.success(success.message);
               this.fetchServices();
-              // setTimeout(() => { this.router.navigate(['/clientTable']); }, 1500);
+              // setTimeout(() => { this.router.navigate(['/administrator']); }, 2000);
             },
             error => {
               this.alertService.error(JSON.parse(JSON.stringify(error)));

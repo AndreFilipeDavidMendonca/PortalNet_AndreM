@@ -42,10 +42,6 @@ API = 'http://localhost:8080';
     return this.http.get<Service>(this.API + '/registration/' + name);
   }
 
-  getByServiceName(name: string) {
-    return this.http.get<Service>(this.API + '/client/' + name);
-  }
-
   addService(service: string) {
     return this.http.post<any>(this.API + '/createService', service);
   }
