@@ -1,8 +1,8 @@
 <body>
 <app-alert></app-alert>
 <br>
-<div class="container" >
-  <div class="row" >
+<div class="container">
+  <div class="row">
     <table class="table table-borderless" >
           <tr>
             <td class="title">Número de Cliente</td>
@@ -153,6 +153,21 @@
               </a>
             </td>
           </tr>
+          <hr width="200%">
+          <tr>
+            <td class="title">Associar Serviço</td>
+            <td>
+              <a (click)="openModalAssociateService(ASModal)" class="edit">
+                <i class="material-icons">edit</i>
+              </a>
+            </td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let AsService of AsService ">
+              <td class="title">{{ AsService.AsServiceName }}</td>
+              <td>{{ AsService.AsServiceAddress }}</td>
+              <td>{{ AsService.AsServicePostalCode }}  / {{ AsService.AsServiceCity }}</td>
+            </tr>
         </tbody>
       </table>
   </div>
@@ -170,13 +185,34 @@
     </a>
   </div>
   <div class="modal-body">
-    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+    <select id="gender" class="form-control" name="gender" [(ngModel)]="client.gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>
+
+<!--Modal Change Name-->
+<ng-template #name let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Alterar Nome</h4>
+      <a (click)="modal.dismiss('Cross click')" class="close">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" placeholder="Introduzir o nome" (click)="saveChanges()" id="name" [(ngModel)]="client.name" name="name"> 
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
 
 <!--Modal Change NIF-->
 <ng-template #nif let-modal>
@@ -187,7 +223,7 @@
     </a>
   </div>
   <div class="modal-body">
-    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+    <input type="number" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="nif" [(ngModel)]="client.nif" name="nif"> 
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
@@ -205,7 +241,7 @@
     </a>
   </div>
   <div class="modal-body">
-    <input type="text" class="form-control" placeholder="{{ placeHolder }}" (click)="saveChanges()" id="address" [(ngModel)]="client.address" name="address"> 
+      <input type="date" id="birthDate" class="form-control" name="birthDate" [(ngModel)]="client.birthDate" required>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" (click)="saveChanges()">Save</button>
