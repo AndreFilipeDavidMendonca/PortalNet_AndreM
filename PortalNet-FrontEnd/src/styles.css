@@ -50,3 +50,7 @@ nav li.nav-item {
 nav li.nav-item a.dropdown-item {
     font-size: 90%;
 }
+
+nav li.nav-item a.dropdown-item:active {
+    background-color: white;
+}
