@@ -46,11 +46,6 @@ export class AuthenticationService {
     this.currentUser = null;
   }
 
-//   recoverPassword(body: string) {
-//     return this.http.post(this.API + '/auth/forgot-password', body);
-//   }
-
-
   persistUser() {
     this.user = localStorage.getItem('currentUser');
     this.currentUser = JSON.parse(this.user);

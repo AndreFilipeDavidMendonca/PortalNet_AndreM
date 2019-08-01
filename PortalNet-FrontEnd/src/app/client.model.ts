@@ -2,9 +2,8 @@ import { Authority } from './authority';
 
 export class Client {
     
-    public clientId?:string;
+    public clientId:string;
     public name: string;
-    public clientNumber: number;
     public address: string;
     public city: string;
     public postalCode: string;
@@ -28,7 +27,7 @@ export class Client {
    
 
     
-    constructor(clientId: string, name: string, clientNumber: number, address: string, city: string, postalCode: string, nif: number, birthDate: string, email: string, mobilePhone: number, 
+    constructor(clientId: string, name: string, address: string, city: string, postalCode: string, nif: number, birthDate: string, email: string, mobilePhone: number, 
                 gender: string, entryDate: string, phone: number, endContract: string, numberOfServices: number, monthlyPay: number, 
                 serviceName: string, status: boolean, fraudulent: boolean, password: string, role: string){
 
@@ -36,7 +35,6 @@ export class Client {
 
         this.clientId = clientId;    
         this.name = name;
-        this.clientNumber = clientNumber;
         this.address = address;
         this.city = city;
         this.postalCode = postalCode;

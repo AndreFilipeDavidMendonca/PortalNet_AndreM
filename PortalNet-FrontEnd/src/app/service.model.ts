@@ -23,9 +23,5 @@ export class Service {
         this.loyalty = loyalty;
         this.creationDate = creationDate;
         this.status = status;
-
     }
-    
-    
-
 }

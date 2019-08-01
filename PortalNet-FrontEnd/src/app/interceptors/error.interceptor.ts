@@ -46,10 +46,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.router.navigate(['/home']);
       }
     
-      // else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
-      //   error.message = "Não foi possível conectar ao servidor!";
-      //   return throwError(error.message);
-      // }
+      else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
+        error.message = "Não foi possível conectar ao servidor!";
+        return throwError(error.message);
+      }
 
       return throwError(error);
 
