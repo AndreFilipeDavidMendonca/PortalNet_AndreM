@@ -79,7 +79,7 @@ export class ServicesTableComponent implements OnInit {
     this.servicesService.getServiceById(serviceID)
       .pipe(first())
       .subscribe(service => {
-        this.service = service[0]; 
+        this.service = service; 
       });
   }
 

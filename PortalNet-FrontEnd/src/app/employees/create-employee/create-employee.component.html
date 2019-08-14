@@ -47,8 +47,8 @@
             <label for="tv" class="col-sm-4 control-label">Cargo*</label>
             <div class="col-sm-12">
                 <select type="text" id="role" class="form-control" formControlName="role">
-                  <option value="ADMIN">Administrador</option>
-                  <option value="EMPLOYEE">Operador</option>
+                  <option value="administrator">Administrador</option>
+                  <option value="operator">Operador</option>
                 </select>
                 <span class="help-block"*ngIf="EmployeeForm.controls['role'].hasError('required') && EmployeeForm.controls['role'].touched">Introduza o cargo do colaborador!</span>
             </div>

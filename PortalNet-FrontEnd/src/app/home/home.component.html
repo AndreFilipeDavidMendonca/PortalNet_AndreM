@@ -1,8 +1,11 @@
 <body>
    <app-alert></app-alert>
-   <div class="spinner" *ngIf="isLoading">
-      <app-loading-spinner></app-loading-spinner>
+   <div class="container">
+      <div class="spinner" *ngIf="isLoading">
+         <app-loading-spinner></app-loading-spinner>
+      </div>
    </div>
+   
    <div class="main" *ngIf="!isLoading">
     <div class="col-md-12">
       <div class="side-nav">
@@ -10,7 +13,7 @@
         <div class="services">
             <ngb-carousel>
                <ng-template *ngFor="let service of filteredServices; let i= index" ngbSlide>
-                 <img src="{{service.imgUrl}}">
+                 <img src="assets/img/servicesBackground0.png">
                  <div class="carousel-caption">
                   <h1 class="serviceName">{{ service.name }}</h1>
                   <p *ngIf="service.tv != '0'">Televisão - {{ service.tv }} Canais</p> 

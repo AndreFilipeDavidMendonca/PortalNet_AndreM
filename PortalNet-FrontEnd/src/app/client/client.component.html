@@ -93,22 +93,7 @@
                   <i class="material-icons">edit</i>
                 </a>
               </td>
-          </tr>
-          <tr>
-            <td class="title">Serviço</td>
-            <td>{{ client.serviceName }}</td>
-            <td>
-              <a (click)="openModalService(service)" class="edit">
-                <i class="material-icons">edit</i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td class="title">Serviços Associados</td>
-            <td>{{ client.numberOfServices }}</td>
-            <td>
-            </td>
-          </tr>
+            </tr>
           <tr>
             <td class="title">Data de Inscrição</td>
             <td>{{ client.entryDate }}</td>
@@ -147,28 +132,41 @@
               </a>
             </td>
           </tr>
-          <hr width="200%">
-          <tr>
-            <td class="title">Associar Serviço</td>
-            <td>
-              <a (click)="openModalAssociateService(ASModal)" class="edit">
-                <i class="material-icons">edit</i>
-              </a>
-            </td>
-            <td></td>
-          </tr>
-          <tr *ngFor="let AsService of AsService ">
-              <td class="title">{{ AsService.AsServiceName }}</td>
-              <td>{{ AsService.AsServiceAddress }}</td>
-              <td>{{ AsService.AsServicePostalCode }}  / {{ AsService.AsServiceCity }}</td>
-            </tr>
+          <br><br>
         </tbody>
       </table>
   </div>
-  <br>
-<button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
+  <br><br>
+  <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
+  <br><br><br><br>
 </div>
-<br><br><br>
+
+<!-- Container of associated services -->
+<div class="container2">
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        <td class="title">Associar Serviço</td>
+        <td></td>
+        <td>
+          <a (click)="openModalAssociateService(ASModal)" class="edit">
+            <i class="material-icons">edit</i>
+          </a>
+        </td>
+      </tr>
+      <tr *ngFor="let AsService of AsServices ">
+        <td class="title">{{ AsService.AsServiceName }}</td>
+        <td>{{ AsService.AsServiceAddress }}  |  {{ AsService.AsServicePostalCode }}  |  {{ AsService.AsServiceCity }}</td>
+        <td>
+          <a (click)="openModalAssociateService(ASModal)" class="edit">
+            <i class="material-icons">delete</i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <!--Modal Change Gender-->
 <ng-template #gender let-modal>
@@ -447,7 +445,7 @@
     </div> 
   </div>    
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="modal.save('saveClick')" >Save</button>
+    <button type="button" class="btn btn-success" (click)="SendAsService()" >Enviar</button>
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>

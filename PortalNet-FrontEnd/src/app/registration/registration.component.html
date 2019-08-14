@@ -108,7 +108,7 @@
         <div class="form-group">
             <label for="serviceName" class="col-sm-3 control-label"><h3>Serviço*</h3></label>
             <div class="col-sm-5">
-                <select id="serviceName" class="form-control" formControlName="serviceName" (click)="fetchServiceByName()">
+                <select id="serviceName" class="form-control" formControlName="serviceName" (click)="fetchByServiceName()">
                     <option value="{{ service.name }}" *ngFor="let service of filteredServices">{{ service.name }}</option>
                 </select>
                 <span class="help-block" *ngIf="ClientForm.controls['serviceName'].hasError('required') && ClientForm.controls['serviceName'].touched">Selecione um serviço</span>

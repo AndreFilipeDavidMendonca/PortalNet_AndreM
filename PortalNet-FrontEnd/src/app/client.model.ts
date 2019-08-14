@@ -17,7 +17,6 @@ export class Client {
     public endContract: string;
     public numberOfServices: number;
     public monthlyPay: number;
-    public serviceName: string;
     public status: boolean;
     public fraudulent: boolean;
     public password: string;
@@ -29,7 +28,7 @@ export class Client {
     
     constructor(clientId: string, name: string, address: string, city: string, postalCode: string, nif: number, birthDate: string, email: string, mobilePhone: number, 
                 gender: string, entryDate: string, phone: number, endContract: string, numberOfServices: number, monthlyPay: number, 
-                serviceName: string, status: boolean, fraudulent: boolean, password: string, role: string){
+                status: boolean, fraudulent: boolean, password: string, role: string){
 
             
 
@@ -48,7 +47,6 @@ export class Client {
         this.endContract = endContract;
         this.numberOfServices = numberOfServices;
         this.monthlyPay = monthlyPay;
-        this.serviceName = serviceName;
         this.status = status;
         this.fraudulent = fraudulent;
         this.password = password;

@@ -1,8 +1,6 @@
 package com.polarising.PortalNet.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.stereotype.Component;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class Workers {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer employeeId;
     private String name;
     private String email;
@@ -21,12 +18,21 @@ public class Workers {
     
     public Workers() {}
 
-    public Workers(String name, String email, String role, String password) {
+    public Workers(Integer employeeId, String name, String email, String role, String password) {
+    	this.employeeId = employeeId;
         this.name = name;
         this.email = email;
         this.role = role;
         this.password = password;
     }
+
+	public Workers(Integer employeeId, String name, String email, String role) {
+		super();
+		this.employeeId = employeeId;
+		this.name = name;
+		this.email = email;
+		this.role = role;
+	}
 
 	public Integer getEmployeeId() {
 		return employeeId;

@@ -3,6 +3,7 @@ package com.polarising.PortalNet.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,23 +19,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.polarising.PortalNet.model.Workers;
 import com.polarising.PortalNet.Repository.ClientRepository;
 import com.polarising.PortalNet.Repository.WorkersRepository;
 import com.polarising.PortalNet.jwt.JwtAuthEntryPoint;
 import com.polarising.PortalNet.jwt.JwtAuthFilter;
-import com.polarising.PortalNet.model.Client;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	Client client;
-	
-	@Autowired
-	Workers worker;
 	
 	@Autowired
 	ClientRepository clientRepository;
@@ -43,7 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	WorkersRepository workersRepository;
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsService
+	userDetailsService;
 	
 	@Autowired
 	private JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -105,7 +99,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.authorizeRequests()
 			.antMatchers("/client/**").access("hasAuthority('CLIENT') or hasAuthority('EMPLOYEE') or hasAuthority('ADMIN')")
-			.antMatchers("/clientsTable", "/administrator", "/servicesTable", "/employeesTable/**",  "/createEmployee").access("hasAuthority('EMPLOYEE') or hasAuthority('ADMIN')")
+			.antMatchers("/clientsTable", "/administrator", "/employeesTable").access("hasAuthority('EMPLOYEE') or hasAuthority('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/servicesTable").access("hasAuthority('EMPLOYEE') or hasAuthority('ADMIN')")
 			.antMatchers("/**").access("hasAuthority('ADMIN')")
 			.anyRequest().authenticated()
 			.and()

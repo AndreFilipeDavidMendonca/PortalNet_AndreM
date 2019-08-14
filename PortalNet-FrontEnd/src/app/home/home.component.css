@@ -1,5 +1,6 @@
 .body {
     position: absolute;
+    width:100%;
 }
 
 .main {
@@ -31,8 +32,9 @@
 
 h1 {
 color: rgb(51, 102, 214);
-font-size: 500%;
+font-size: 600%;
 font-weight: 400px;
+margin-left: 5%;
 }
 
 .serviceName {
@@ -63,9 +65,14 @@ font-weight: 400px;
     font-weight: 600px;
 }
 
+.container {
+    width: 100%;
+    margin: 0 auto 0;
+}
+
 .spinner {
-    position: absolute;
-    margin: 20% 0 0 48%;
+    width: 100%;
+    margin: 15% 0 0 47%;
 }
 @media (max-width: 1000px){
 

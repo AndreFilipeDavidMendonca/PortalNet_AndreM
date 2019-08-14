@@ -95,6 +95,4 @@ public class ClientForm {
 	public String getBirthDate() {
 		return birthDate;
 	}
-
-
 }

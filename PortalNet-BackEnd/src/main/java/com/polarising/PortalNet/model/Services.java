@@ -1,8 +1,6 @@
 package com.polarising.PortalNet.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
@@ -11,24 +9,24 @@ import org.springframework.stereotype.Component;
 public class Services {
 
 	@javax.persistence.Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long serviceID;
-    private String name;
-    private String internet;
-    private String tv;
-    private String phone;
-    private String mobilePhone;
-    private int loyalty;
-    private float price;
-    private String creationDate;
-    private boolean status;
-    private String imgUrl;
-    private String imgName;
+    private Long serviceID; //serviceID
+    private String name; //serviceName
+    private String internet; //internet
+    private String tv; //tv
+    private String phone; //phone
+    private String mobilePhone; //mobilePhone
+    private int loyalty; //loyalty
+    private float price; //price
+    private String creationDate; //creationDate
+    private boolean status; //active
+    private String imgUrl; //ImageURL
+    private String imgName; 
     
     
     public Services() {}
 
-    public Services(String name, String internet, String tv, String phone, String mobilePhone, int loyalty, float price, String creationDate, boolean status, String imgUrl, String imgName) {
+    public Services(Long serviceID, String name, String internet, String tv, String phone, String mobilePhone, int loyalty, float price, String creationDate, boolean status, String imgUrl, String imgName) {
+    	this.serviceID = serviceID;
     	this.imgName = imgName;
     	this.imgUrl = imgUrl;
     	this.name = name;
@@ -41,6 +39,22 @@ public class Services {
         this.creationDate = creationDate;
         this.status = status;
     }
+    
+	public Services(String name, String internet, String tv, String phone, String mobilePhone, int loyalty, float price,
+			String creationDate, boolean status, String imgUrl, String imgName) {
+		super();
+		this.name = name;
+		this.internet = internet;
+		this.tv = tv;
+		this.phone = phone;
+		this.mobilePhone = mobilePhone;
+		this.loyalty = loyalty;
+		this.price = price;
+		this.creationDate = creationDate;
+		this.status = status;
+		this.imgUrl = imgUrl;
+		this.imgName = imgName;
+	}
 
 	public String getImgName() {
 		return imgName;
@@ -136,6 +150,14 @@ public class Services {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Services [serviceID=" + serviceID + ", name=" + name + ", internet=" + internet + ", tv=" + tv
+				+ ", phone=" + phone + ", mobilePhone=" + mobilePhone + ", loyalty=" + loyalty + ", price=" + price
+				+ ", creationDate=" + creationDate + ", status=" + status + ", imgUrl=" + imgUrl + ", imgName="
+				+ imgName + "]";
 	}
 }
 

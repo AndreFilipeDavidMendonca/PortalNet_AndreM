@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.polarising.PortalNet.Security.UserDetailsService;
 
 public class JwtAuthFilter extends OncePerRequestFilter{
-
+	
 	@Autowired
 	JwtCreator jwtCreator;
 	
@@ -38,22 +38,27 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 			{
 				String userName = jwtCreator.getJwtUsername(jwt);
 				
+				//If we can load the user, then we have authenticated it using the jwt
 				UserDetails user = userDetails.loadUserByUsername(userName);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 				
+				//Optional
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				
+				//Needed to hold user details
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		}
 		catch (Exception e)
 		{
-			logger.error("Unable to set user authentication --> " + e);
+			logger.error("Unable to set user authentication --> ", e);
 		}
 		
+		//We say to the authentication to continue to the next filter
 		filterChain.doFilter(request, response);
 	}
 
+	//We take the token from the request header and take the "Bearer " substring from it, so we can then validate and obtain the username from it
 	private String getJwt(HttpServletRequest request)
 	{
 		String jwt = request.getHeader("Authorization");

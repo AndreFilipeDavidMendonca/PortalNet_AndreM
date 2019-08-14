@@ -45,7 +45,7 @@ public class JwtCreator {
 		
 		//Let's set the JWT claims
 		JwtBuilder builder = Jwts.builder()
-				.setSubject(userPrincipal.getUsername())
+				.setSubject(userPrincipal.getEmail())
 				.claim("userId", Id)
 				.claim("userName", name)
 				.claim("authorities", userPrincipal.getAuthorities())
@@ -64,13 +64,13 @@ public class JwtCreator {
 		return builder.compact();
 	}
 	
-	
+	//Gets userName from Token
 	public String getJwtUsername(String jwt)
 	{
 		return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(jwt).getBody().getSubject();
 	}
 	
-	
+	//Validates Token
 	public boolean jwtValidate(String jwt) {
 		try{
 			Jwts.parser().setSigningKey(signingKey).parseClaimsJws(jwt);

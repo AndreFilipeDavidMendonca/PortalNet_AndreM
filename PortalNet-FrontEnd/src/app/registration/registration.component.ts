@@ -56,12 +56,12 @@ export class RegistrationComponent implements OnInit{
 
   }
 
-  fetchServiceByName(){
+  fetchByServiceName(){
     this.selectedService = this.ClientForm.get('serviceName').value;
     this.servicesService.getByName(this.selectedService)
       .pipe(first())
       .subscribe(service => {
-        this.service = service[0];
+        this.service = service;
         this.servicePrice = this.service.price;
         return this.servicePrice;
       });
@@ -85,7 +85,7 @@ export class RegistrationComponent implements OnInit{
       email: ['', [Validators.required, Validators.email]],
     },
       {
-        validator: this.utilsService.MustMatch('password', 'confirmPassword'),
+        validator: this.utilsService.CheckPassword('password', 'confirmPassword'),
     });
   }
 

@@ -38,7 +38,7 @@
                     <tbody>
                         <tr *ngFor="let client of filteredClients  | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
                             <td scope="row">{{ client.name }}</td>
-                            <td>{{ client.clientNumber }}</td>
+                            <td>{{ client.clientId }}</td>
                             <td>{{ client.nif }}</td>
                             <td>{{ client.email }}</td>
                             <td>{{ client.serviceName }} </td>
@@ -75,7 +75,7 @@
                         <tbody>
                             <tr *ngFor="let client of clients | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
                                 <td scope="row">{{ client.name }}</td>
-                                <td>{{ client.clientNumber }}</td>
+                                <td>{{ client.clientId }}</td>
                                 <td>{{ client.nif }}</td>
                                 <td>{{ client.email }}</td>
                                 <td>{{ client.serviceName }} </td>
@@ -113,7 +113,7 @@
                         <tbody>
                             <tr *ngFor="let client of bothFilteredClients  | paginate: { itemsPerPage: 10, currentPage: p } | filter: {name: searchText, clientNumber:searchText, nif: searchText}; let i=index;">
                                 <td scope="row">{{ client.name }}</td>
-                                <td>{{ client.clientNumber }}</td>
+                                <td>{{ client.clientId }}</td>
                                 <td>{{ client.nif }}</td>
                                 <td>{{ client.email }}</td>
                                 <td>{{ client.serviceName }} </td>

@@ -46,7 +46,7 @@ export class CreateEmployeeComponent implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
     },
     {
-      validator: this.utilsService.MustMatch('password', 'confirmPassword'),
+      validator: this.utilsService.CheckPassword('password', 'confirmPassword'),
     });
   
   }
@@ -61,11 +61,7 @@ export class CreateEmployeeComponent implements OnInit {
       // reset alerts on submit
       this.alertService.clear();
       
-      // stop here if form is invalid
-      if (this.EmployeeForm.invalid) {
-        return;
-      }
-      
+
       // user to JSON
       
         this.employeeToJSON = JSON.parse(JSON.stringify(this.EmployeeForm.value));
@@ -74,11 +70,12 @@ export class CreateEmployeeComponent implements OnInit {
             .subscribe(
               success => {
                 this.alertService.success(success.message);
-                setTimeout(() => { this.router.navigate(['/employeesTable']); }, 1500);
+                setTimeout(() => { this.router.navigate(['/employeesTable']); }, 2000);
               },
               error => {
                 this.alertService.error(JSON.parse(JSON.stringify(error)));
                 this.isLoading = false;
+                setTimeout(() => { this.router.navigate(['/employeesTable']); }, 2000);
         });
         
       }

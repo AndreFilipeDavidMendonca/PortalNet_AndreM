@@ -11,6 +11,8 @@ import { AuthenticationService } from '../authentication.service';
 import { User } from '../user.model';
 import { UtilsService } from '../utils.service';
 import { AppComponent } from '../app.component';
+import { AssociatedService } from '../associatedService.model';
+import { AssociatedServiceService } from '../associatedService.service';
 
 
 
@@ -32,13 +34,17 @@ export class ClientComponent implements OnInit {
   service: Service;
   placeHolder: string;
   clientToJSON: string;
+  asServiceToJSON: string;
   submitted = false;
   filteredServices: Service[] = [];
+  filteredAsServices: AssociatedService[]=[];
   currentUser: User;
   selectedService: string;
   servicePrice: number;
+  asService: AssociatedService;
+  asServices: AssociatedService[]=[];
   
-  constructor(private appComponent: AppComponent ,private utilsService: UtilsService ,private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
+  constructor(private associatedService: AssociatedServiceService, private appComponent: AppComponent ,private utilsService: UtilsService ,private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
   
@@ -47,7 +53,13 @@ export class ClientComponent implements OnInit {
       this.services = services;
       this.filteredServices = this.services.filter(x =>  (x.status === true));
      });
+  }
 
+  fetchAsServices(clientId: number) {
+    this.associatedService.getAsServices(clientId).pipe(first()).subscribe(asServices => {
+      this.asServices = asServices;
+      
+    });
   }
 
   openBackDropCustomClass(content) {
@@ -135,15 +147,32 @@ export class ClientComponent implements OnInit {
     this.clientService.getById(this.clientId)
       .pipe(first())
       .subscribe(client => {
-        this.client = client[0];
+        this.client = client;
       });
+  }
+
+  
+  deleteAsService(id : number) {
+    this.alertService.clear();
+    let alert = confirm('Tem a certeza que deseja eliminar o colaborador?');
+    if (alert) {
+      this.associatedService.deleteAsService(id).subscribe(success => {
+        this.alertService.success(success.message);
+        // setTimeout(() => { this.router.navigate(['/client']); }, 1500);
+        this.fetchAsServices(this.clientId);
+      },
+        error => {
+          this.alertService.error(error);
+        });
+    } 
   }
 
   ngOnInit() {
     this.fetchServices();
     this.route.paramMap.subscribe(data => {
     this.clientId = +data.get('clientId');
-    this.fetchClientById()
+    this.fetchAsServices(this.clientId);
+    this.fetchClientById();
     });  
   }
 
@@ -153,16 +182,35 @@ export class ClientComponent implements OnInit {
     this.passEntry.emit(this.client);
   }
 
+  SendAsService() {
+    // reset alerts
+    this.alertService.clear();
+
+
+    // AsService to JSON
+      this.asServiceToJSON = JSON.parse(JSON.stringify(this.asService));
+      console.log(this.asService);
+      this.associatedService.addAsService(this.asServiceToJSON)
+        .pipe(first())
+          .subscribe(
+            success => {
+              this.alertService.success(success);
+              this.fetchAsServices(this.clientId);
+            },
+            error => {
+              this.alertService.error(JSON.parse(JSON.stringify(error)));
+      });
+  }
+  
 
   onSubmit() {
     this.submitted = true;
 
-    // reset alerts on submit
+    // reset alerts
     this.alertService.clear();
 
 
-    // user to JSON
-
+    // client to JSON
       this.clientToJSON = JSON.parse(JSON.stringify(this.client));
       this.clientService.updateClient(this.clientId, this.clientToJSON)
         .pipe(first())
@@ -172,7 +220,7 @@ export class ClientComponent implements OnInit {
               this.fetchClientById();
             },
             error => {
-              this.alertService.error(JSON.parse(JSON.stringify(error)));
+              this.alertService.error(JSON.parse(JSON.stringify(error.text)));
       });
   }
  }

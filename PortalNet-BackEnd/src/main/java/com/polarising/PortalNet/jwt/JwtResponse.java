@@ -16,6 +16,7 @@ public class JwtResponse {
 	
 	public JwtResponse() {};
 	
+	//Defining object to be sent to front-end once authenticated
 	public JwtResponse(String jwt, String message, Collection<? extends GrantedAuthority> authorities, int userId, String userName) {
 		super();
 		this.jwt = jwt;

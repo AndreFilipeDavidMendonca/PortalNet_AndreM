@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { Client } from './client.model';
 import { map } from 'rxjs/operators';
-// import * as jwt_decode from 'jwt-decode';
 import { Globals } from './globals';
 import { User } from './user.model';
 

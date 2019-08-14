@@ -12,5 +12,7 @@ public interface WorkersRepository extends CrudRepository<Workers, Integer>{
 
 	List<Workers> findByName(String name);
 	List<Workers> findByEmail(String email);
+	List<Workers> findByEmployeeId(Integer id);
 	boolean existsByEmail(String email);
+	boolean existsByEmployeeId(Integer id);
 }

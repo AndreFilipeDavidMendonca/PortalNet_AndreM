@@ -1,8 +1,17 @@
 .container {
-    width: 60%;
-    margin: 2% auto 0;
+    width: 40%;
+    margin: 2% 0 0 10%;
     font-size: 120%;
+    position: absolute;
 }
+
+.container2 {
+    width: 40%;
+    margin: 2% 0 0 55%;
+    font-size: 120%;
+    position: absolute;
+}
+
 a.edit .material-icons {
     color: rgb(51, 102, 214);
     font-size: 150%;

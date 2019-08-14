@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceForm {
 	private String name;
-	private String tv;
 	private String internet;
-	private String mobilePhone;
+	private String tv;
 	private String phone;
+	private String mobilePhone;
 	private int loyalty;
 	private float price;
 	private String imgUrl;

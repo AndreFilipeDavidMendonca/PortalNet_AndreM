@@ -22,7 +22,7 @@ export class UtilsService {
     return throwError(errorMessage);
   }
 
-  MustMatch(controlName: string, matchingControlName: string) {
+  CheckPassword(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];

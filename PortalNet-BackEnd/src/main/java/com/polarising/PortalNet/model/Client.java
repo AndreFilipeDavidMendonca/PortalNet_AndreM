@@ -1,8 +1,8 @@
 package com.polarising.PortalNet.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.stereotype.Component;
@@ -12,38 +12,66 @@ import org.springframework.stereotype.Component;
 public class Client {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer clientId;
-	private String clientNumber;
-    private int nif;
-    private String name;
-    private String address;
-    private String postalCode;
-    private String city;
-    private long mobilePhone;
-    private long phone;
-    private String email;
-    private String gender;
-    private String password;
-    private String entryDate;
-    private String endContract;
-    private int numberOfServices;
-    private String serviceName;
-    private float monthlyPay;
-    private boolean fraudulent;
-    private boolean status;
-    private String birthDate;
-    private String role;
+    private Integer clientId; //clientNumber
+    private int nif; //nif
+    private String name; //clientName
+    private String address; //address
+    private String postalCode; //postalCode
+    private String city; //locality
+    private long mobilePhone; //mobileNumber
+    private long phone; //phoneNumber
+    private String email; //email
+    private String gender; //gender
+    private String password; //null
+    private String entryDate; //accessionDate
+    private String endContract; //
+    private int numberOfServices; //
+    private ArrayList<AssociatedService> servicesList;
+    private String serviceName; //
+    private float monthlyPay; //
+    private boolean fraudulent; //dishonest
+    private boolean status; //active
+    private String birthDate; //birthDate
+    private String role; //client
 
     
     public Client() {}
     
-    public Client(String clientNumber, int nif, String name, String address, String postalCode,
+    public Client(Integer clientId, int nif, String name, String address, String postalCode,
 			String city, long mobilePhone, long phone, String email, String gender, String password, String entryDate,
-			String endContract, int numberOfServices, String serviceName, float monthlyPay, boolean fraudulent,
+			String endContract, int numberOfServices, ArrayList<AssociatedService> servicesList, String serviceName, float monthlyPay, boolean fraudulent,
 			boolean status, String birthDate, String role) {
 		super();
-		this.clientNumber = clientNumber;
+		this.clientId = clientId;
+		this.nif = nif;
+		this.name = name;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.mobilePhone = mobilePhone;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.password = password;
+		this.entryDate = entryDate;
+		this.endContract = endContract;
+		this.numberOfServices = numberOfServices;
+		this.servicesList = servicesList;
+		this.serviceName = serviceName;
+		this.monthlyPay = monthlyPay;
+		this.fraudulent = fraudulent;
+		this.status = status;
+		this.birthDate = birthDate;
+		this.role = role;
+	}
+
+    //Without the associated servicesList
+	public Client(Integer clientId, int nif, String name, String address, String postalCode, String city,
+			long mobilePhone, long phone, String email, String gender, String password, String entryDate, String endContract,
+			int numberOfServices, String serviceName, float monthlyPay, boolean fraudulent, boolean status,
+			String birthDate, String role) {
+		super();
+		this.clientId = clientId;
 		this.nif = nif;
 		this.name = name;
 		this.address = address;
@@ -65,20 +93,35 @@ public class Client {
 		this.role = role;
 	}
 
+	//For updating a client
+	public Client(Integer clientId, int nif, String name, String address, String postalCode, String city,
+			long mobilePhone, long phone, String email, String gender, String entryDate,
+			boolean fraudulent, boolean status, String birthDate, String role) {
+		super();
+		this.clientId = clientId;
+		this.nif = nif;
+		this.name = name;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.mobilePhone = mobilePhone;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.password = null;
+		this.entryDate = entryDate;
+		this.fraudulent = fraudulent;
+		this.status = status;
+		this.birthDate = birthDate;
+		this.role = role;
+	}
+
 	public Integer getClientId() {
 		return clientId;
 	}
 
 	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
-	}
-
-	public String getClientNumber() {
-		return clientNumber;
-	}
-
-	public void setClientNumber(String clientNumber) {
-		this.clientNumber = clientNumber;
 	}
 
 	public int getNif() {
@@ -185,6 +228,14 @@ public class Client {
 		this.numberOfServices = numberOfServices;
 	}
 
+	public ArrayList<AssociatedService> getServicesList() {
+		return servicesList;
+	}
+
+	public void setServicesList(ArrayList<AssociatedService> servicesList) {
+		this.servicesList = servicesList;
+	}
+
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -235,12 +286,12 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [clientId=" + clientId + ", clientNumber=" + clientNumber + ", nif=" + nif + ", name=" + name
-				+ ", address=" + address + ", postalCode=" + postalCode + ", city=" + city + ", mobilePhone="
-				+ mobilePhone + ", phone=" + phone + ", email=" + email + ", gender=" + gender + ", password="
-				+ password + ", entryDate=" + entryDate + ", endContract=" + endContract + ", numberOfServices="
-				+ numberOfServices + ", serviceName=" + serviceName + ", monthlyPay=" + monthlyPay + ", fraudulent="
+		return "Client [clientId=" + clientId + ", nif=" + nif + ", name=" + name + ", address=" + address
+				+ ", postalCode=" + postalCode + ", city=" + city + ", mobilePhone=" + mobilePhone + ", phone=" + phone
+				+ ", email=" + email + ", gender=" + gender + ", password=" + password + ", entryDate=" + entryDate
+				+ ", endContract=" + endContract + ", numberOfServices=" + numberOfServices + ", servicesList="
+				+ servicesList + ", serviceName=" + serviceName + ", monthlyPay=" + monthlyPay + ", fraudulent="
 				+ fraudulent + ", status=" + status + ", birthDate=" + birthDate + ", role=" + role + "]";
-	}	
+	}
 }
 
