@@ -172,12 +172,21 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.asServiceForm = this.formBuilder.group({
+      serviceID: ['', Validators.required],
+      installationAddress: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      locality: ['', Validators.required],  
+      clientId: ['', Validators.required],   
+    });
+
     this.fetchServices();
     this.route.paramMap.subscribe(data => {
     this.clientId = +data.get('clientId');
     this.fetchAsServices(this.clientId);
     this.fetchClientById();
     });  
+
   }
 
   
@@ -187,17 +196,7 @@ export class ClientComponent implements OnInit {
   }
 
   SendAsService() {
-    this.asServiceForm = this.formBuilder.group({
-      serviceID: ['', Validators.required],
-      installationAddress: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      locality: ['', Validators.required],  
-      clientId: ['', Validators.required],   
-    });
-
-  
-    console.log(this.client.clientId);
-    console.log(this.asServiceForm.value);
+    this.asServiceForm.value.clientId = this.client.clientId;
 
     // AsService to JSON
       this.asServiceToJSON = JSON.parse(JSON.stringify(this.asServiceForm.value));
@@ -205,7 +204,7 @@ export class ClientComponent implements OnInit {
         .pipe(first())
           .subscribe(
             success => {
-              this.alertService.success(success);
+              this.alertService.success(success.message);
               this.fetchAsServices(this.clientId);
             },
             error => {

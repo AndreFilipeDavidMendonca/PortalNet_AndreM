@@ -50,6 +50,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         error.message = "Não foi possível conectar ao servidor!";
         return throwError(error.message);
       }
+      // else if (err.status === 500) {
+      //   error.message = "Ocorreu um erro! Verifique se os dados que introduziu estão correctos.";
+      //   return throwError(error.message);
+      // }
 
       return throwError(error);
 

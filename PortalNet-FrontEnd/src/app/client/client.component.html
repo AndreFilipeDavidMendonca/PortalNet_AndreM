@@ -143,7 +143,7 @@
   </div>
   <br><br>
   <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
-  <br><br><br><br>
+  <br><br>
 </div>
 
 <!-- Container of associated services -->
@@ -151,28 +151,29 @@
   <table class="table table-borderless">
     <tbody>
       <tr>
-        <td class="title">Associar Serviço</td>
-        <td>
-          <a (click)="openModalAssociateService(ASModal)" class="edit">
-            <i class="material-icons">edit</i>
+        <td class="title">
+          <a  class="btn btn-primary" (click)="openModalAssociateService(ASModal)" *ngIf="appComponent.isAdmin() || appComponent.isOperator()">
+            <i class="material-icons" style="color: white;">&#xE147;</i> <span style="color: white; font-size: 100%;">&ensp;Adicionar Serviço</span>
           </a>
+        </td>
+        <td>   
         </td>
       </tr>
     </tbody>
   </table>
-  <div class="asServices" style="border: 0.5px solid lightgray; padding: 10px; border-radius: 10px;">
-      <table   class="table table-borderless" *ngFor="let asService of asServices">
+  <div class="asServices" *ngFor="let asService of asServices" style="margin-top: 1%;border: 0.5px solid lightgray; padding: 10px; border-radius: 10px;">
+      <table   class="table table-borderless">
           <tr>
             <td><p class="names">Nome do Serviço:</p> {{ asService.serviceName }}</td>
-            <td><p class="names">Mensalidade: </p>{{ asService.monthlyPay }} </td>
+            <td><p class="names">Mensalidade: </p>{{ asService.monthlyPay }}€ </td>
           </tr>
           <tr>
-              <td><p class="names">Morada: </p>{{ asService.installationAddress }}   </td>
-                <td><p class="names">Código-Postal: </p>{{ asService.postalCode }}, {{ asService.locality }}</td>
+            <td><p class="names">Morada: </p>{{ asService.installationAddress }}   </td>
+            <td><p class="names">Código-Postal: </p>{{ asService.postalCode }}, {{ asService.locality }}</td>
           </tr>
           <tr>
             <td>
-              <a (click)="deleteAsService(this.asService.associatedServiceID)" class="edit">
+              <a (click)="deleteAsService(this.asService.associatedServiceID)" class="delete">
                 <i class="material-icons">delete</i>
               </a>
             </td>
@@ -435,7 +436,7 @@
         <i class="material-icons">close</i>
     </a>
   </div>
-  <form [formGroup]="asServiceForm"  role="form" >
+  <form  [formGroup]="asServiceForm" role="form" >
   <div class="modal-body">
     <label for="moradaAS">Morada de Instalação</label>
     
@@ -460,14 +461,10 @@
           <select formControlName="serviceID" id="serviceID" class="form-control" required>
               <option value="{{ service.serviceID }}" *ngFor="let service of filteredServices">{{ service.name }}  ||  {{ service.price }}€</option>
           </select>
-          <span class="help-block" *ngIf="!serviceID.valid && serviceID.touched">Selecione um serviço!</span>
+          <!-- <span class="help-block" *ngIf="!serviceID.valid && serviceID.touched">Selecione um serviço!</span> -->
       </div>
     </div> 
   </div>    
-  <div class="modal-body">
-      <input type="text" class="form-control" value="{{ this.client.clientId }}" formControlName="clientId" id="clientId" required hide>
-      <!-- <span class="help-block" *ngIf="!locality.valid && locality.touched">Introduza uma localidade!</span> -->
-</div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" (click)="SendAsService()">Enviar</button>
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>

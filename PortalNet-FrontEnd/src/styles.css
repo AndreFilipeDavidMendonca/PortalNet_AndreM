@@ -11,6 +11,10 @@ a.edit .material-icons {
     font-size: 150%;
 }
 
+a.addAsService .material-icons{
+    font-size: 120%;
+}
+
 a.close .material-icons {
     color: rgb(255, 0, 0);
 }
