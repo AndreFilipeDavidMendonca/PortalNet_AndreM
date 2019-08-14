@@ -289,14 +289,11 @@ public class TibcoService {
 	public void modifyClient(String idAuth, String roleAuth, Client client, int clientId)
 	{		
 		
-		System.err.println(client.isStatus());
-		System.err.println(client.isFraudulent());
 		String filledSoapRequestBody = String.format(getModifyClientSoapRequestBody, idAuth, roleAuth, client.isStatus(), client.isFraudulent(), "false",
 													client.getEntryDate(), client.getAddress(), client.getBirthDate(), client.getName(),
 													clientId, client.getEmail(), client.getGender(), client.getCity(), client.getMobilePhone(),
 													client.getNif(), client.getPhone(), client.getPostalCode());
 		
-		System.err.println(filledSoapRequestBody);
 		String response = portalNetHttpRequest.postToTibco(getModifyClientSubPath, filledSoapRequestBody, getModifyClientSoapAction, getWorkerPort);
 		
 		ArrayList<Map<String, String>> mapList = parseBodyXML.parseResponseXML(response, null);
@@ -308,7 +305,7 @@ public class TibcoService {
 	public void registClient(Client client)
 	{
 		String filledSoapRequestBody = String.format(getClientRegistSoapRequestBody, client.getClientId(), client.getRole(),
-				client.getEntryDate(), client.getPassword(), getServiceIDFromServiceList(client.getServiceName(), "", ""), client.isStatus(), client.isFraudulent(),
+				client.getEntryDate(), client.getPassword(), getServiceIDFromServiceList(client.getServiceName()), client.isStatus(), client.isFraudulent(),
 				"false", client.getEntryDate(), client.getAddress(), client.getBirthDate(), client.getName(), client.getClientId(),
 				client.getEmail(), client.getGender(), client.getCity(), client.getMobilePhone(), client.getNif(),
 				client.getPhone(), client.getPostalCode());
@@ -569,21 +566,6 @@ public class TibcoService {
 		return totalMonthlyPay;
 	}
 	
-	public float getServiceMonthlyPay (String serviceID, String idAuth, String roleAuth)
-	{
-		@SuppressWarnings("unchecked")
-		List<Services> serviceslist = (List<Services>) transformList("Service", idAuth, roleAuth, null);
-		
-		for (Services service : serviceslist) {
-			if (serviceID.equals(service.getServiceID()))
-			{
-				return service.getPrice();
-			}
-		}
-		
-		return 0;
-	}
-	
 	public Client getClient (List<Object> clientList, int clientId) throws NotFoundException
 	{
 		Client client = null;
@@ -651,40 +633,6 @@ public class TibcoService {
 		}
 	}
 	
-	public float getServicePriceFromServiceList(String serviceName, String idAuth, String roleAuth)
-	{
-		float monthlyPay = 0;
-		
-		@SuppressWarnings("unchecked")
-		ArrayList<Services> servicesList = (ArrayList<Services>) transformList("Service", idAuth, roleAuth, null);
-		
-		for (Services service : servicesList) {
-			if (serviceName.equals(service.getName()))
-			{
-				monthlyPay = service.getPrice();
-			}
-		}
-		
-		return monthlyPay;
-	}
-	
-	public String getServiceIDFromServiceList(String serviceName, String idAuth, String roleAuth)
-	{
-		String serviceID = null;
-		
-		@SuppressWarnings("unchecked")
-		ArrayList<Services> servicesList = (ArrayList<Services>) transformList("Service", idAuth, roleAuth, null);
-		
-		for (Services services : servicesList) {
-			if (serviceName.equals(services.getName()))
-			{
-				serviceID = services.getServiceID().toString();
-			}
-		}
-		
-		return serviceID;
-	}
-	
 	public Services getServiceWithName(String serviceName)
 	{
 		@SuppressWarnings("unchecked")
@@ -715,21 +663,29 @@ public class TibcoService {
 		return null;
 	}
 	
-	public String getServiceNameFromServiceList(String serviceID, String idAuth, String roleAuth)
+	public String getServiceIDFromServiceList(String serviceName)
 	{
-		String serviceName = null;
 		
-		@SuppressWarnings("unchecked")
-		List<Services> services = (List<Services>) transformList("Service", idAuth, roleAuth, null);
+		return getServiceWithName(serviceName).getServiceID().toString();
+	}
+	
+	/**
+	 * This method can either receive a service name or ID to obtain full details on that service,
+	 * inputting true or false as the boolean parameter, respectively.
+	 * @param serviceNameOrID
+	 * @param nameOrID
+	 * @return
+	 */
+	public float getServicePrice(String serviceNameOrID, boolean nameOrID)
+	{
 		
-		for (Services service : services) {
-			if (serviceID.equals(service.getServiceID()))
-			{
-				serviceName = service.getName();
-			}
+		if(nameOrID){
+			return getServiceWithName(serviceNameOrID).getPrice();
 		}
-		
-		return serviceName;
+		else
+		{
+			return getServiceWithId(serviceNameOrID).getPrice();
+		}
 	}
 	
 	public boolean compareServiceName (String serviceName, String idAuth, String roleAuth)

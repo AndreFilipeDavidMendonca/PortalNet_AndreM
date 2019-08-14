@@ -22,23 +22,20 @@ export class AssociatedServiceService {
 API = 'http://localhost:8080';
 
   getAsServices(clientId: number) {
-    return this.http.get<AssociatedService[]>(this.API + '/client' + clientId)
+    return this.http.get<AssociatedService[]>(this.API + '/client/asServices/' + clientId);
   }
 
-//   getById(id: number) {
-//     return this.http.get<Client>(this.API + '/client/' + id);
-//   }
 
-  addAsService(associatedService: string) {
-    return this.http.post<any>(this.API + '/client', associatedService);
+  addAsService(asService: string) {
+    return this.http.post<any>(this.API + '/client/registerAsServices', asService);
   }
 
   updateAsService(id: number, associatedService: string) {
     return this.http.put<any>(this.API + '/client/' + id, associatedService);
   }
 
-  deleteAsService(id: number) {
-    return this.http.delete<any>(this.API + '/client/' + id);
+  deleteAsService(associatedServiceID: number) {
+    return this.http.delete<any>(this.API + '/client/deleteAsService/' + associatedServiceID);
   }
 
 }

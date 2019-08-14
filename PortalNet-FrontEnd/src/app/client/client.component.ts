@@ -13,6 +13,8 @@ import { UtilsService } from '../utils.service';
 import { AppComponent } from '../app.component';
 import { AssociatedService } from '../associatedService.model';
 import { AssociatedServiceService } from '../associatedService.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
 
 
 
@@ -43,8 +45,11 @@ export class ClientComponent implements OnInit {
   servicePrice: number;
   asService: AssociatedService;
   asServices: AssociatedService[]=[];
+  asServiceForm: FormGroup;
+
+
   
-  constructor(private associatedService: AssociatedServiceService, private appComponent: AppComponent ,private utilsService: UtilsService ,private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
+  constructor(private associatedService: AssociatedServiceService, private formBuilder: FormBuilder, private appComponent: AppComponent ,private utilsService: UtilsService ,private servicesService: ServicesService, private authenticationService: AuthenticationService, private modalService: NgbModal, private clientService: ClientService, private router: Router, private route: ActivatedRoute, private alertService: AlertService) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
   
@@ -57,8 +62,7 @@ export class ClientComponent implements OnInit {
 
   fetchAsServices(clientId: number) {
     this.associatedService.getAsServices(clientId).pipe(first()).subscribe(asServices => {
-      this.asServices = asServices;
-      
+    this.asServices = asServices;
     });
   }
 
@@ -152,11 +156,11 @@ export class ClientComponent implements OnInit {
   }
 
   
-  deleteAsService(id : number) {
+  deleteAsService(associatedServiceID : number) {
     this.alertService.clear();
-    let alert = confirm('Tem a certeza que deseja eliminar o colaborador?');
+    let alert = confirm('Tem a certeza que deseja remover este serviço?');
     if (alert) {
-      this.associatedService.deleteAsService(id).subscribe(success => {
+      this.associatedService.deleteAsService(associatedServiceID).subscribe(success => {
         this.alertService.success(success.message);
         // setTimeout(() => { this.router.navigate(['/client']); }, 1500);
         this.fetchAsServices(this.clientId);
@@ -183,13 +187,20 @@ export class ClientComponent implements OnInit {
   }
 
   SendAsService() {
-    // reset alerts
-    this.alertService.clear();
+    this.asServiceForm = this.formBuilder.group({
+      serviceID: ['', Validators.required],
+      installationAddress: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      locality: ['', Validators.required],  
+      clientId: ['', Validators.required],   
+    });
 
+  
+    console.log(this.client.clientId);
+    console.log(this.asServiceForm.value);
 
     // AsService to JSON
-      this.asServiceToJSON = JSON.parse(JSON.stringify(this.asService));
-      console.log(this.asService);
+      this.asServiceToJSON = JSON.parse(JSON.stringify(this.asServiceForm.value));
       this.associatedService.addAsService(this.asServiceToJSON)
         .pipe(first())
           .subscribe(
@@ -198,7 +209,7 @@ export class ClientComponent implements OnInit {
               this.fetchAsServices(this.clientId);
             },
             error => {
-              this.alertService.error(JSON.parse(JSON.stringify(error)));
+              this.alertService.error(JSON.parse(JSON.stringify(error.message)));
       });
   }
   

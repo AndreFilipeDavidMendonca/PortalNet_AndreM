@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.polarising.PortalNet.Utilities.TibcoService;
 import com.polarising.PortalNet.model.AssociatedService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AssociatedServiceController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AssociatedServiceController.class);
@@ -40,7 +42,7 @@ public class AssociatedServiceController {
 	
 	
 	//Associates a new service to a client
-	@PostMapping(path = "/client")
+	@PostMapping(path = "client/registerAsServices")
 	public ResponseEntity<?> associateNewService(@RequestBody AssociatedServiceForm associatedService)
 	{
 		String message;
@@ -48,17 +50,18 @@ public class AssociatedServiceController {
 		try{
 			String[] credentials = tibcoService.getSecurityCredentials();
 			
-			AssociatedService newAssociatedService = new AssociatedService(tibcoService.getServiceNameFromServiceList(associatedService.getServiceID(),
-																			credentials[0], credentials[1]), associatedService.getServiceID(),
+			AssociatedService newAssociatedService = new AssociatedService(tibcoService.getServiceWithId(associatedService.getServiceID()).getName(),
+																			associatedService.getServiceID(),
 																			associatedService.getInstallationAddress(),
 																			associatedService.getPostalCode(),
 																			associatedService.getLocality(),
 																			dateFormatHelper.dateFormater(),
 																			dateFormatHelper.addYearToDate(dateFormatHelper.dateFormater(), 1),
 																			Integer.parseInt(credentials[0]),
-																			tibcoService.getServiceMonthlyPay(associatedService.getServiceID(),credentials[0], credentials[1]));
+																			tibcoService.getServicePrice(associatedService.getServiceID(), false));
 			
-			tibcoService.associateNewService(credentials[0], credentials[1], newAssociatedService, Integer.parseInt(associatedService.getClientNumber()));
+			System.err.println(associatedService.toString());
+			tibcoService.associateNewService(credentials[0], credentials[1], newAssociatedService, Integer.parseInt(associatedService.getClientId()));
 			message = "Serviço foi associado!";
 			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
 		}
@@ -70,7 +73,7 @@ public class AssociatedServiceController {
 	}
 	
 	//Updates an Associated Service
-	@PutMapping(path = "/client/{associatedServiceID}/andre")
+	@PutMapping(path = "client/asServiceslol/{associatedServiceID}")
 	public ResponseEntity<?> updateAssociatedService(@PathVariable String associatedServiceID, @RequestBody AssociatedServiceForm associatedService)
 	{
 		
@@ -80,15 +83,15 @@ public class AssociatedServiceController {
 		try{
 			String[] credentials = tibcoService.getSecurityCredentials();
 			
-			AssociatedService updatedAssociatedService = new AssociatedService(Integer.parseInt(associatedService.getAssociatedServiceID()), tibcoService.getServiceNameFromServiceList(associatedService.getServiceID(),
-					credentials[0], credentials[1]), associatedService.getServiceID(),
-					associatedService.getInstallationAddress(),
-					associatedService.getPostalCode(),
-					associatedService.getLocality(),
-					dateFormatHelper.dateFormater(),
-					dateFormatHelper.addYearToDate(dateFormatHelper.dateFormater(), 1),
-					Integer.parseInt(credentials[0]),
-					tibcoService.getServiceMonthlyPay(associatedService.getServiceID(),credentials[0], credentials[1]));
+			AssociatedService updatedAssociatedService = new AssociatedService(Integer.parseInt(associatedService.getAssociatedServiceID()), tibcoService.getServiceWithId(associatedService.getServiceID()).getName(),
+																			associatedService.getServiceID(),
+																			associatedService.getInstallationAddress(),
+																			associatedService.getPostalCode(),
+																			associatedService.getLocality(),
+																			dateFormatHelper.dateFormater(),
+																			dateFormatHelper.addYearToDate(dateFormatHelper.dateFormater(), 1),
+																			Integer.parseInt(credentials[0]),
+																			tibcoService.getServicePrice(associatedServiceID, false));
 
 			tibcoService.updateAssociatedService(credentials[0], credentials[1], updatedAssociatedService);
 			
@@ -103,7 +106,7 @@ public class AssociatedServiceController {
 	}
 	
 	//Remove an associated service from a client
-	@DeleteMapping(path = "/deleteAssociatedService/{associatedServiceID}")
+	@DeleteMapping(path = "client/deleteAsService/{associatedServiceID}")
 	public ResponseEntity<?> removeAssociatedService(@PathVariable String associatedServiceID)
 	{
 		String message;
@@ -117,14 +120,23 @@ public class AssociatedServiceController {
 			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
 		}
 		catch (AuthenticationCredentialsNotFoundException e) {
+		    if(e.getMessage().contains("Remove"))
+		            {
+		                message = "Não pode remover o último serviço.";
+		            }
+		            else
+		            {
+		                message = "Falhou o acesso à base de dados.";               
+		            }
+
 			logger.error(e.getMessage());
-			message = "Falhou o acesso à base de dados.";
-			return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(message, HttpStatus.CONFLICT);
 		}
+		
 	}
 	
 	//Get a client's associated services
-	@GetMapping(path = "/asServices/{clientId}")
+	@GetMapping(path = "client/asServices/{clientId}")
 	public ResponseEntity<?> getClientAssociatedServices(@PathVariable Integer clientId)
 	{
 		String message;

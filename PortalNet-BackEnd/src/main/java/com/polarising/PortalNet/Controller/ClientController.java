@@ -195,7 +195,7 @@ public class ClientController {
 			String entryDate = dateFormatHelper.dateFormater();
 			String endContract = dateFormatHelper.addYearToDate(entryDate, 1);
 			int numberOfServices = 1;
-			float monthlyPay = tibcoService.getServicePriceFromServiceList(clientForm.getServiceName(), "", "");
+			float monthlyPay = tibcoService.getServicePrice(clientForm.getServiceName(), true);
 			boolean fraudulent = false;
 			boolean status = true;
 			String clientRole = "client";
@@ -209,37 +209,6 @@ public class ClientController {
 			//Hashing the password
 			newClient.setPassword(passwordEncoder.encode(newClient.getPassword()));
 			
-//			@SuppressWarnings("unchecked")
-//			List<Client> clientsList = (List<Client>) tibcoService.transformList("Client", credentials[0], credentials[1], null);
-//			
-//			//Checking for already existing clients
-//			for (Client client : clientsList)
-//			{
-//				if (client.getNif() == newClient.getNif())
-//				{
-//					message = "Já existe um utilizador com este NIF!";
-//					
-//					return new ResponseEntity<String> (message, HttpStatus.CONFLICT);
-//				}
-//				else if (client.getEmail().equals(newClient.getEmail()))
-//				{
-//					message = "Já existe um utilizador com este email!";
-//					
-//					return new ResponseEntity<String> (message, HttpStatus.CONFLICT);
-//				}
-//				else if ((client.getMobilePhone() == newClient.getMobilePhone()) && newClient.getMobilePhone() != -1)
-//				{
-//					message = "Já existe um utilizador com este número de telemóvel!";
-//					
-//					return new ResponseEntity<String> (message, HttpStatus.CONFLICT);
-//				}
-//				
-//				if (client.getClientId() == newClient.getClientId())
-//				{
-//					clientNumber = clientNumberGenerator.generateNumber();
-//				}
-//			}
-			
 			tibcoService.registClient(newClient);
 			
 			message = clientForm.getName() + " foi registado com sucesso!";
@@ -251,17 +220,19 @@ public class ClientController {
 			{
 				message = "Número de telemóvel já existe.";
 			}
-			else if(e.getMessage().contains("Nif"))
+			else if(e.getMessage().contains("NIF"))
 			{
 				message = "Nif já existe.";
 			}
-			else if(e.getMessage().contains("email"))
+			else if(e.getMessage().contains("Email"))
 			{
 				message = "Email já existe.";
 			}
+			else {
+				message = "Falhou o acesso à base de dados.";				
+			}
 			logger.error(e.getMessage());
-			message = "Falhou o acesso à base de dados.";
-			return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(message, HttpStatus.CONFLICT);
 		}
 	}
 }

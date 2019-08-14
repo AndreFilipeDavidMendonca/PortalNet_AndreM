@@ -5,6 +5,9 @@
     position: absolute;
 }
 
+.names {
+    color:rgb(51, 102, 214);
+}
 .container2 {
     width: 40%;
     margin: 2% 0 0 55%;

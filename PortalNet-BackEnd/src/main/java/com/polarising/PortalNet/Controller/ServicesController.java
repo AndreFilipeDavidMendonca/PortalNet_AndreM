@@ -84,16 +84,14 @@ public class ServicesController {
 	//Get service by name
 	@GetMapping(path = "/registration/{name}", produces= {"application/json"})
 	public ResponseEntity<?> getByName(@PathVariable String name)
-	{	
-		
+	{			
 		return new ResponseEntity<>(tibcoService.getServiceWithName(name), HttpStatus.OK);
 	}
 	
 	//Get service by Id
 	@GetMapping(path = "/servicesTable/{serviceId}", produces= {"application/json"})
 	public ResponseEntity<?> getById(@PathVariable String serviceId)
-	{	
-			
+	{				
 		return new ResponseEntity<>(tibcoService.getServiceWithId(serviceId), HttpStatus.OK);
 	}
 	

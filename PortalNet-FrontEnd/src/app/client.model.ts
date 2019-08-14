@@ -2,7 +2,7 @@ import { Authority } from './authority';
 
 export class Client {
     
-    public clientId:string;
+    public clientId:number;
     public name: string;
     public address: string;
     public city: string;
@@ -26,7 +26,7 @@ export class Client {
    
 
     
-    constructor(clientId: string, name: string, address: string, city: string, postalCode: string, nif: number, birthDate: string, email: string, mobilePhone: number, 
+    constructor(clientId: number, name: string, address: string, city: string, postalCode: string, nif: number, birthDate: string, email: string, mobilePhone: number, 
                 gender: string, entryDate: string, phone: number, endContract: string, numberOfServices: number, monthlyPay: number, 
                 status: boolean, fraudulent: boolean, password: string, role: string){
 

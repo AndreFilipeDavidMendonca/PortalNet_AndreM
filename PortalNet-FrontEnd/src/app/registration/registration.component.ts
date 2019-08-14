@@ -139,7 +139,6 @@ export class RegistrationComponent implements OnInit{
           .subscribe(
             success => {
               this.alertService.success(success.message);
-              // setTimeout(() => { this.router.navigate(['/clientTable']); }, 1500);
             },
             error => {
               this.alertService.error(JSON.parse(JSON.stringify(error)));

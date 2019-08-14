@@ -1,7 +1,8 @@
 export class AssociatedService {
-    public id?: number;
+    public associatedServiceID?: number;
     public clientId: number;
     public employeeId: number;
+    public serviceID: number;
     public serviceName: string;
     public installationAddress: string;
     public postalCode: string;
@@ -11,10 +12,12 @@ export class AssociatedService {
     public workerNumber: number;
     public monthlyPay: number;
 
-    constructor(id: number, clientId: number, serviceName: string, 
+    constructor(associatedServiceID: number, serviceID: number, clientId: number, serviceName: string, 
         installationAddress: string, postalCode: string, locality: string, 
         alterationDate: string, contractEndDate: string, workerNumber: number, monthlyPay: number) {
-            this.id = id;
+            
+            this.serviceID = serviceID;
+            this.associatedServiceID = associatedServiceID;
             this.clientId = clientId;
             this.serviceName = serviceName;
             this.installationAddress = installationAddress;

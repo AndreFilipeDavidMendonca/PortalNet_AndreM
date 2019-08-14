@@ -1,9 +1,14 @@
 <body>
 <app-alert></app-alert>
 <br>
-<div class="container">
+<div class="container"  style="border: 0.5px solid lightgray; padding: 50px; border-radius: 20px;">
   <div class="row">
     <table class="table table-borderless" >
+        <tr>
+            <td class="title">Número de Cliente</td>
+            <td>{{ client.clientId }}</td>
+            <td></td>
+          </tr>
           <tr>
             <td class="title">Nome Completo</td>
             <td>{{ client.name }}</td>
@@ -147,24 +152,36 @@
     <tbody>
       <tr>
         <td class="title">Associar Serviço</td>
-        <td></td>
         <td>
           <a (click)="openModalAssociateService(ASModal)" class="edit">
             <i class="material-icons">edit</i>
           </a>
         </td>
       </tr>
-      <tr *ngFor="let AsService of AsServices ">
-        <td class="title">{{ AsService.AsServiceName }}</td>
-        <td>{{ AsService.AsServiceAddress }}  |  {{ AsService.AsServicePostalCode }}  |  {{ AsService.AsServiceCity }}</td>
-        <td>
-          <a (click)="openModalAssociateService(ASModal)" class="edit">
-            <i class="material-icons">delete</i>
-          </a>
-        </td>
-      </tr>
     </tbody>
   </table>
+  <div class="asServices" style="border: 0.5px solid lightgray; padding: 10px; border-radius: 10px;">
+      <table   class="table table-borderless" *ngFor="let asService of asServices">
+          <tr>
+            <td><p class="names">Nome do Serviço:</p> {{ asService.serviceName }}</td>
+            <td><p class="names">Mensalidade: </p>{{ asService.monthlyPay }} </td>
+          </tr>
+          <tr>
+              <td><p class="names">Morada: </p>{{ asService.installationAddress }}   </td>
+                <td><p class="names">Código-Postal: </p>{{ asService.postalCode }}, {{ asService.locality }}</td>
+          </tr>
+          <tr>
+            <td>
+              <a (click)="deleteAsService(this.asService.associatedServiceID)" class="edit">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+ 
 </div>
 
 
@@ -418,36 +435,44 @@
         <i class="material-icons">close</i>
     </a>
   </div>
+  <form [formGroup]="asServiceForm"  role="form" >
   <div class="modal-body">
     <label for="moradaAS">Morada de Instalação</label>
-      <input type="text" class="form-control" placeholder="Introduza a morada de instalação!" (input)="updateData($event)"  name="address" id="address" #address="ngModel" ngModel required>
-      <span class="help-block" *ngIf="!address.valid && address.touched">Introduza uma morada para a instalação!</span>
+    
+      <input type="text" class="form-control" placeholder="Introduza a morada de instalação!"  formControlName="installationAddress" id="installationAddress" required>
+      <!-- <span class="help-block" *ngIf="!installationAddress.valid && installationAddress.touched">Introduza uma morada para a instalação!</span> -->
   </div>
   <div class="modal-body">
       <label for="postCode">Código-Postal</label>
-        <input type="text" class="form-control" placeholder="Introduza o Código-Postal" (input)="updateData($event)"  name="postCode" id="postCode" #postCode="ngModel" ngModel required>
-        <span class="help-block" *ngIf="!postCode.valid && postCode.touched">Introduza um código-postal!</span>
+        <input type="text" class="form-control" placeholder="Introduza o Código-Postal"  formControlName="postalCode" id="postalCode" required>
+        <!-- <span class="help-block" *ngIf="!postalCode.valid && postalCode.touched">Introduza um código-postal!</span> -->
   </div>
   <div class="modal-body">
       <label for="postCode">Localidade</label>
-        <input type="text" class="form-control" placeholder="Introduza a Localidade!" (input)="updateData($event)" name="city" id="city" #city="ngModel" ngModel required>
-        <span class="help-block" *ngIf="!city.valid && city.touched">Introduza uma localidade!</span>
+        <input type="text" class="form-control" placeholder="Introduza a Localidade!" formControlName="locality" id="locality" required>
+        <!-- <span class="help-block" *ngIf="!locality.valid && locality.touched">Introduza uma localidade!</span> -->
   </div>
+  
   <div class="modal-body">
     <label for="service">Serviço</label>
     <div class="form-group">
       <div class="col-sm-9">
-          <select name="AsService" id="AsService" class="form-control" #AsService="ngModel" ngModel required>
-              <option value="{{ service.name }}" *ngFor="let service of filteredServices">{{ service.name }}  ||  {{ service.price }}€</option>
+          <select formControlName="serviceID" id="serviceID" class="form-control" required>
+              <option value="{{ service.serviceID }}" *ngFor="let service of filteredServices">{{ service.name }}  ||  {{ service.price }}€</option>
           </select>
-          <span class="help-block" *ngIf="!AsService.valid && AsService.touched">Selecione um serviço!</span>
+          <span class="help-block" *ngIf="!serviceID.valid && serviceID.touched">Selecione um serviço!</span>
       </div>
     </div> 
   </div>    
+  <div class="modal-body">
+      <input type="text" class="form-control" value="{{ this.client.clientId }}" formControlName="clientId" id="clientId" required hide>
+      <!-- <span class="help-block" *ngIf="!locality.valid && locality.touched">Introduza uma localidade!</span> -->
+</div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="SendAsService()" >Enviar</button>
+    <button type="submit" class="btn btn-success" (click)="SendAsService()">Enviar</button>
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
   </div>
+  </form>
 </ng-template>
 
 
