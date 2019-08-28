@@ -109,13 +109,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginProcessingUrl("/").permitAll()
 			.loginPage("/home").permitAll()
 			.and()
-			.logout().invalidateHttpSession(true)
-			.clearAuthentication(true)
-			//logout page
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			//logout redirect page
-			.logoutSuccessUrl("/home").permitAll()
-			.and()
 			.exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

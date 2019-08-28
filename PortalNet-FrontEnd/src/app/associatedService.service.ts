@@ -19,7 +19,7 @@ export class AssociatedServiceService {
 
 
 
-API = 'http://localhost:8080';
+API = 'http://localhost:9000';
 
   getAsServices(clientId: number) {
     return this.http.get<AssociatedService[]>(this.API + '/client/asServices/' + clientId);

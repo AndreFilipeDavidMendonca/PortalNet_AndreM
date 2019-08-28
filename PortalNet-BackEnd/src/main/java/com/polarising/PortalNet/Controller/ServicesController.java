@@ -108,7 +108,7 @@ public class ServicesController {
 		
 		Services newService = new Services(serviceForm.getName(), serviceForm.getTv(), serviceForm.getInternet(), serviceForm.getPhone(),
 											serviceForm.getMobilePhone(), serviceForm.getLoyalty(), serviceForm.getPrice(), creationDate, status, serviceForm.getImgUrl(), serviceForm.getImgName());
-
+		System.err.println(newService);
 		
 		if (tibcoService.compareServiceName(newService.getName(), credentials[0], credentials[1]))
 		{

@@ -13,7 +13,7 @@
         <div class="services">
             <ngb-carousel>
                <ng-template *ngFor="let service of filteredServices; let i= index" ngbSlide>
-                 <img src="assets/img/servicesBackground0.png">
+                 <img src="{{ service.imgUrl }}">
                  <div class="carousel-caption">
                   <h1 class="serviceName">{{ service.name }}</h1>
                   <p *ngIf="service.tv != '0'">Televisão - {{ service.tv }} Canais</p> 
