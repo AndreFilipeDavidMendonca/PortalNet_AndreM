@@ -49,7 +49,8 @@ public class ServicesController {
 	//Update service details
 	@PutMapping(path = "/servicesTable")
 	public ResponseEntity<?> updateService (@RequestBody Services service)
-	{
+	{	
+		
 		String message;
 		try{
 			String[] credentials = tibcoService.getSecurityCredentials();
@@ -106,10 +107,12 @@ public class ServicesController {
 		String creationDate = dateFormatHelper.dateFormater();
 		boolean status = true;
 		
-		Services newService = new Services(serviceForm.getName(), serviceForm.getTv(), serviceForm.getInternet(), serviceForm.getPhone(),
-											serviceForm.getMobilePhone(), serviceForm.getLoyalty(), serviceForm.getPrice(), creationDate, status, serviceForm.getImgUrl(), serviceForm.getImgName());
-		System.err.println(newService);
+		String imgUrl= "assets/img/" + serviceForm.getImgName();
 		
+		Services newService = new Services(serviceForm.getName(), serviceForm.getTv(), serviceForm.getInternet(), serviceForm.getPhone(),
+											serviceForm.getMobilePhone(), serviceForm.getLoyalty(), serviceForm.getPrice(), creationDate, status, imgUrl, serviceForm.getImgName());
+
+	
 		if (tibcoService.compareServiceName(newService.getName(), credentials[0], credentials[1]))
 		{
 			message = "Já existe um serviço com este nome!";

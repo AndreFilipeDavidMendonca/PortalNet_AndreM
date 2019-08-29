@@ -60,7 +60,6 @@ public class AssociatedServiceController {
 																			Integer.parseInt(credentials[0]),
 																			tibcoService.getServicePrice(associatedService.getServiceID(), false));
 			
-			System.err.println(associatedService.toString());
 			tibcoService.associateNewService(credentials[0], credentials[1], newAssociatedService, Integer.parseInt(associatedService.getClientId()));
 			message = "Serviço foi associado!";
 			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
@@ -72,38 +71,38 @@ public class AssociatedServiceController {
 		}
 	}
 	
-	//Updates an Associated Service
-	@PutMapping(path = "client/asServiceslol/{associatedServiceID}")
-	public ResponseEntity<?> updateAssociatedService(@PathVariable String associatedServiceID, @RequestBody AssociatedServiceForm associatedService)
-	{
-		
-		//Estou a ir buscar o associatedServiceID ao form, e não ao Path. Ver isso com o André
-		String message;
-		
-		try{
-			String[] credentials = tibcoService.getSecurityCredentials();
-			
-			AssociatedService updatedAssociatedService = new AssociatedService(Integer.parseInt(associatedService.getAssociatedServiceID()), tibcoService.getServiceWithId(associatedService.getServiceID()).getName(),
-																			associatedService.getServiceID(),
-																			associatedService.getInstallationAddress(),
-																			associatedService.getPostalCode(),
-																			associatedService.getLocality(),
-																			dateFormatHelper.dateFormater(),
-																			dateFormatHelper.addYearToDate(dateFormatHelper.dateFormater(), 1),
-																			Integer.parseInt(credentials[0]),
-																			tibcoService.getServicePrice(associatedServiceID, false));
-
-			tibcoService.updateAssociatedService(credentials[0], credentials[1], updatedAssociatedService);
-			
-			message = "Serviço foi atualizado!";
-			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
-		}
-		catch (AuthenticationCredentialsNotFoundException e) {
-			logger.error(e.getMessage());
-			message = "Falhou o acesso à base de dados.";
-			return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
-		}
-	}
+//	//Updates an Associated Service
+//	@PutMapping(path = "client/asServiceslol/{associatedServiceID}")
+//	public ResponseEntity<?> updateAssociatedService(@PathVariable String associatedServiceID, @RequestBody AssociatedServiceForm associatedService)
+//	{
+//		
+//		//Estou a ir buscar o associatedServiceID ao form, e não ao Path. Ver isso com o André
+//		String message;
+//		
+//		try{
+//			String[] credentials = tibcoService.getSecurityCredentials();
+//			
+//			AssociatedService updatedAssociatedService = new AssociatedService(Integer.parseInt(associatedService.getAssociatedServiceID()), tibcoService.getServiceWithId(associatedService.getServiceID()).getName(),
+//																			associatedService.getServiceID(),
+//																			associatedService.getInstallationAddress(),
+//																			associatedService.getPostalCode(),
+//																			associatedService.getLocality(),
+//																			dateFormatHelper.dateFormater(),
+//																			dateFormatHelper.addYearToDate(dateFormatHelper.dateFormater(), 1),
+//																			Integer.parseInt(credentials[0]),
+//																			tibcoService.getServicePrice(associatedServiceID, false));
+//
+//			tibcoService.updateAssociatedService(credentials[0], credentials[1], updatedAssociatedService);
+//			
+//			message = "Serviço foi atualizado!";
+//			return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
+//		}
+//		catch (AuthenticationCredentialsNotFoundException e) {
+//			logger.error(e.getMessage());
+//			message = "Falhou o acesso à base de dados.";
+//			return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+//		}
+//	}
 	
 	//Remove an associated service from a client
 	@DeleteMapping(path = "client/deleteAsService/{associatedServiceID}")

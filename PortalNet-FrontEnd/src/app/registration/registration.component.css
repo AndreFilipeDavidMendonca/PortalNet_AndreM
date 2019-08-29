@@ -12,8 +12,8 @@ hr {
 }
 
 .container {
-   margin-left: 10%;
-   width: 130%;
+   margin-left: 17%;
+   width: 200%;
 }
 
 *[role="form"] {
@@ -50,12 +50,6 @@ h3 {
 .form-group {
    margin-top: 4%;
   
-}
-
-.portalnetLogo {
-   clear: both;
-   position: absolute;
-   margin: 22% 0 0 65%;
 }
 
 h1 {

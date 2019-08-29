@@ -319,9 +319,10 @@ public class TibcoService {
 	
 	public void createService(String idAuth, String roleAuth, Services service)
 	{
-		String filledSoapRequestBody = String.format(getCreateServiceSoapRequestBody, idAuth, roleAuth, service.getImgUrl(),
+		
+		String filledSoapRequestBody = String.format(getCreateServiceSoapRequestBody, idAuth, roleAuth, service.getImgName(),
 													service.isStatus(), service.getCreationDate(), service.getInternet(),
-													service.getLoyalty(), service.getMobilePhone(), service.getMobilePhone(),
+													service.getLoyalty(),  service.getMobilePhone(), service.getPhone(),
 													service.getPrice(), service.getName(), service.getTv());
 		
 		String response = portalNetHttpRequest.postToTibco(getCreateServiceSubPath, filledSoapRequestBody, getCreateServiceSoapAction, getAdminPort);
@@ -335,7 +336,6 @@ public class TibcoService {
 	{
 		String filledSoapRequestBody = String.format(getModifyServiceSoapRequestBody, idAuth, roleAuth, service.isStatus(), service.getServiceID());
 		
-		System.err.println(service.isStatus());
 		
 		String response = portalNetHttpRequest.postToTibco(getModifyServiceSubPath, filledSoapRequestBody, getModifyServiceSoapAction, getAdminPort);
 		ArrayList<Map<String, String>> mapList = parseBodyXML.parseResponseXML(response, null);
@@ -535,7 +535,7 @@ public class TibcoService {
 		List<Object> list = new ArrayList<Object>();
 		String response = portalNetHttpRequest.postToTibco(subPath, filledSoapRequestBody, soapAction, port);
 		ArrayList<Map<String, String>> mapList = parseBodyXML.parseResponseXML(response, specificVars);
-		
+
 		//Checking if the operation was successful
 		tibcoSuccessCheck(mapList);
 		mapList.remove(0);
@@ -573,9 +573,9 @@ public class TibcoService {
 		for (Object object : clientList) {
 			clientsList.add((Client) object);
 		}
-			
+
 		for (Client client1 : clientsList) {
-			if (client1.getClientId().equals(clientId))
+			if ((int)client1.getClientId() == clientId)
 			{
 				client = client1;
 			}

@@ -54,7 +54,7 @@ export class ClientComponent implements OnInit {
   }
   
   fetchServices() {
-    this.servicesService.getHomeServices().pipe(first()).subscribe(services => {
+    this.servicesService.getAll().pipe(first()).subscribe(services => {
       this.services = services;
       this.filteredServices = this.services.filter(x =>  (x.status === true));
      });
@@ -153,6 +153,7 @@ export class ClientComponent implements OnInit {
       .subscribe(client => {
         this.client = client;
       });
+      console.log(this.client);
   }
 
   
@@ -162,7 +163,6 @@ export class ClientComponent implements OnInit {
     if (alert) {
       this.associatedService.deleteAsService(associatedServiceID).subscribe(success => {
         this.alertService.success(success.message);
-        // setTimeout(() => { this.router.navigate(['/client']); }, 1500);
         this.fetchAsServices(this.clientId);
       },
         error => {
@@ -172,6 +172,10 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(data => {
+      this.clientId = +data.get('clientId');
+      this.fetchClientById();
+    });  
     this.asServiceForm = this.formBuilder.group({
       serviceID: ['', Validators.required],
       installationAddress: ['', Validators.required],
@@ -179,13 +183,10 @@ export class ClientComponent implements OnInit {
       locality: ['', Validators.required],  
       clientId: ['', Validators.required],   
     });
-
-    this.fetchServices();
-    this.route.paramMap.subscribe(data => {
-    this.clientId = +data.get('clientId');
+    
     this.fetchAsServices(this.clientId);
-    this.fetchClientById();
-    });  
+    this.fetchServices();
+    
 
   }
 

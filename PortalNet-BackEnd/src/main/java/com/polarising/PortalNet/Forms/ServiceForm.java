@@ -30,7 +30,6 @@ public class ServiceForm {
 		this.price = price;
 		this.imgUrl = imgUrl;
 		this.imgName = imgName;
-		
 	}
 
 	public String getImgName() {

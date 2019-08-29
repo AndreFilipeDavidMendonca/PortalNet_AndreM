@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
             },
             error => {
               this.router.navigate(['/home']);
-              this.alertService.error(error);
+              this.alertService.error(error.message);
               this.isLoading = false;
               return error;
     });

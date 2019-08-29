@@ -16,20 +16,20 @@ export class ErrorInterceptor implements HttpInterceptor {
       let error = err.error;
 
       if (err.status === 400) {
-        // this.message = "O registo não foi processado! Certifique se os seus dados estão correctos!"
-        this.authenticationService.logout();
-        this.router.navigate(['/home']);
-        // error.message = err.error.message.slice(1, err.error.message.length - 1).split(', ');
+        // // this.message = "O registo não foi processado! Certifique se os seus dados estão correctos!"
+        // this.authenticationService.logout();
+        // this.router.navigate(['/home']);
+        // // error.message = err.error.message.slice(1, err.error.message.length - 1).split(', ');
       }
       else if (err.status === 401) {
         // auto logout if 401 response returned from api
-        this.authenticationService.logout();
-        this.router.navigate(['/home']);
+        // this.authenticationService.logout();
+        // this.router.navigate(['/home']);
       }
       // auto logout if 403 response returned from api
       else if (err.status === 403) {
-        this.authenticationService.logout();
-        this.router.navigate(['/home']);
+        // this.authenticationService.logout();
+        // this.router.navigate(['/home']);
       }
 
       else if (err.status === 404) {
@@ -37,19 +37,19 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       else if (err.status === 302) {
-        this.authenticationService.logout();
-        this.router.navigate(['/home']);
+        // this.authenticationService.logout();
+        // this.router.navigate(['/home']);
       }
 
       else if (err.status === 206) {
-        this.authenticationService.logout();
-        this.router.navigate(['/home']);
+        // this.authenticationService.logout();
+        // this.router.navigate(['/home']);
       }
     
-      else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
-        error.message = "Não foi possível conectar ao servidor!";
-        return throwError(error.message);
-      }
+      // else if (err.statusText === 'Unknown Error' && err.name === 'HttpErrorResponse') {
+      //   error.message = "Não foi possível conectar ao servidor!";
+      //   return throwError(error.message);
+      // }
       // else if (err.status === 500) {
       //   error.message = "Ocorreu um erro! Verifique se os dados que introduziu estão correctos.";
       //   return throwError(error.message);

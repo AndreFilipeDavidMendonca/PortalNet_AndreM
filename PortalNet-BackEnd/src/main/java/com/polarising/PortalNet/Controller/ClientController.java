@@ -136,11 +136,14 @@ public class ClientController {
 	{	
 		String message;
 		String[] credentials = tibcoService.getSecurityCredentials();
-		
+
 		try{
+
 			List<Object> clientList = tibcoService.performTibcoListAction("getAllClients", credentials[0], credentials[1], null);
-			Client client = tibcoService.getClient(clientList, clientId);
+
 			
+			Client client = tibcoService.getClient(clientList, clientId);
+			System.err.println(client.getClientId());
 			return new ResponseEntity<Client> (client, HttpStatus.OK);
 		}
 		catch(NotFoundException e)

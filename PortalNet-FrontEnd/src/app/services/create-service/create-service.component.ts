@@ -67,8 +67,9 @@ export class CreateServiceComponent implements OnInit {
           .pipe(first())
             .subscribe(
               success => {
+                console.log(this.ServiceForm.value);
                 this.alertService.success(success.message);
-                setTimeout(() => { this.router.navigate(['/servicesTable']); }, 2000);
+                setTimeout(() => { this.router.navigate(['/servicesTable']); }, 2000);                
               },
               error => {
                 this.alertService.error(JSON.parse(JSON.stringify(error)));

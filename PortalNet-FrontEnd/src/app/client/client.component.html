@@ -13,7 +13,7 @@
             <td class="title">Nome Completo</td>
             <td>{{ client.name }}</td>
             <td>
-              <a (click)="openModalName(name)" class="edit">
+              <a (click)="openModalName(name)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -22,7 +22,7 @@
             <td class="title">Data de Nascimento</td>
             <td>{{ client.birthDate }}</td>
             <td>
-              <a (click)="openModalBirthDate(birthDate)" class="edit">
+              <a (click)="openModalBirthDate(birthDate)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -31,7 +31,7 @@
             <td class="title">NIF</td>
             <td>{{ client.nif }}</td>
             <td>
-              <a (click)="openModalNif(nif)" class="edit">
+              <a (click)="openModalNif(nif)" class="edit" *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -40,7 +40,7 @@
             <td class="title">Gender</td>
             <td>{{ client.gender }}</td>
             <td>
-              <a (click)="openModalGender(gender)" class="edit">
+              <a (click)="openModalGender(gender)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -49,7 +49,7 @@
             <td class="title">Morada</td>
             <td>{{ client.address }}</td>
             <td>
-              <a (click)="openModalAddress(address)" class="edit">
+              <a (click)="openModalAddress(address)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -58,7 +58,7 @@
             <td class="title">Localidade</td>
             <td>{{ client.city }}</td>
             <td>
-              <a (click)="openModalLocality(city)" class="edit">
+              <a (click)="openModalLocality(city)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
             </a>
             </td>
@@ -67,7 +67,7 @@
             <td class="title">Código-Postal</td>
             <td>{{ client.postalCode }}</td>
             <td>
-              <a (click)="openModalPostalCode(postalCode)" class="edit">
+              <a (click)="openModalPostalCode(postalCode)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
@@ -76,25 +76,27 @@
             <td class="title">Email</td>
             <td>{{ client.email }}</td>
             <td>
-              <a (click)="openModalEmail(email)" class="edit">
+              <a (click)="openModalEmail(email)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
           </tr>
           <tr>
             <td class="title">Telemóvel</td>
-            <td>{{ client.mobilePhone }}</td>
+            <td *ngIf="client.mobilePhone > 0">{{ client.mobilePhone }}</td>
+            <td *ngIf="client.mobilePhone === -1" style="color: lightgray;">NaN</td>
             <td>
-              <a (click)="openModalMobilePhone(mobilePhone)" class="edit">
+              <a (click)="openModalMobilePhone(mobilePhone)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">edit</i>
               </a>
             </td>
           </tr>
           <tr>
               <td class="title">Telefone</td>
-              <td>{{ client.phone }}</td>
+              <td *ngIf="client.phone > 0">{{ client.phone }}</td>
+              <td *ngIf="client.phone === -1" style="color: lightgray;">NaN</td>
               <td>
-                <a (click)="openModalPhone(phone)" class="edit">
+                <a (click)="openModalPhone(phone)" class="edit"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                   <i class="material-icons">edit</i>
                 </a>
               </td>
@@ -142,7 +144,7 @@
       </table>
   </div>
   <br><br>
-  <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()">Enviar</button>
+  <button type="submit" class="btn btn-success" id="enviar" (click)="onSubmit()"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">Enviar</button>
   <br><br>
 </div>
 
@@ -152,7 +154,8 @@
     <tbody>
       <tr>
         <td class="title">
-          <a  class="btn btn-primary" (click)="openModalAssociateService(ASModal)" *ngIf="appComponent.isAdmin() || appComponent.isOperator()">
+          <h3>Serviços do Cliente</h3>
+          <a  class="btn btn-primary" (click)="openModalAssociateService(ASModal)" *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
             <i class="material-icons" style="color: white;">&#xE147;</i> <span style="color: white; font-size: 100%;">&ensp;Adicionar Serviço</span>
           </a>
         </td>
@@ -173,7 +176,7 @@
           </tr>
           <tr>
             <td>
-              <a (click)="deleteAsService(this.asService.associatedServiceID)" class="delete">
+              <a (click)="deleteAsService(this.asService.associatedServiceID)" class="delete"  *ngIf="appComponent.isAdmin() || appComponent.isEmployee()">
                 <i class="material-icons">delete</i>
               </a>
             </td>

@@ -5,7 +5,7 @@
 
 .main {
     position: absolute;
-    width: 100%;
+    width: 95%;
     z-index: 0;
     overflow: hidden;
     height: calc(100vh);
@@ -13,7 +13,7 @@
 
 .login-form  {
     margin: 26% 150%;
-    width: 40%;   
+    width: 50%;   
 }
 
 .carousel-caption {
@@ -38,7 +38,7 @@ font-weight: 400px;
 }
 
 .serviceName {
-    margin-top: -2.4%;
+    margin-top: -3%;
     font-size: 320%;
     font-weight: 400%;
     text-align: center;

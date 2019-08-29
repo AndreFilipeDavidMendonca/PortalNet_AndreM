@@ -27,7 +27,7 @@ public class Services {
 
     public Services(Long serviceID, String name, String internet, String tv, String phone, String mobilePhone, int loyalty, float price, String creationDate, boolean status, String imgUrl, String imgName) {
     	this.serviceID = serviceID;
-    	this.imgName = imgName;
+    	this.imgName = imgUrl;
     	this.imgUrl = imgUrl;
     	this.name = name;
         this.internet = internet;
@@ -53,7 +53,9 @@ public class Services {
 		this.creationDate = creationDate;
 		this.status = status;
 		this.imgUrl = imgUrl;
-		this.imgName = imgName;
+		this.imgName = imgUrl;
+
+		
 	}
 
 	public String getImgName() {
@@ -61,7 +63,7 @@ public class Services {
 	}
 
 	public void setImgName(String imgName) {
-		this.imgName = imgName;
+		this.imgName = imgUrl;
 	}
 
 	public String getImgUrl() {
